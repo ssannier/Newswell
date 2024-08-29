@@ -1,7 +1,15 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { AppBar, Toolbar, Typography, Grid, Button, Box, Paper } from "@mui/material";
 import { styled } from "@mui/system";
 import ReplayIcon from "@mui/icons-material/Replay";
+import NewspaperLayout from "./NewspaperLayout";
+import GenerateNews from "./GenerateNews";
+import { useContext } from "react";
+import { cleanLayoutForAPI, Context, initializeLayout } from "../App";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Assuming you're using react-toastify for toast notifications
+
 const StyledAppBar = styled(AppBar)({
   backgroundColor: "white",
   boxShadow: "none",
@@ -25,18 +33,45 @@ const WhiteBox = styled(Paper)({
 const ActionButton = styled(Button)({
   textTransform: "none",
 });
+const env = import.meta.env;
+
 const AppLayout = () => {
+  const [layout, setLayout] = useContext(Context);
+  const [loading, setLoading] = useState(false);
+  const [currentText, setCurrentText] = useState("");
   const handleUndo = () => {
     // Implement undo logic
   };
   const handleReset = () => {
-    // Implement reset logic
+    setLayout(initializeLayout());
   };
-  const handleSave = () => {
-    // Implement save logic
+
+  const handleSave = async () => {
+    setLoading(true);
+
+    try {
+      const res = await axios.post(env.VITE_API_JSON_UPLOAD, layout, {
+        mode: "cors",
+
+        headers: {},
+      });
+      const message = res.data.body;
+      console.log(message);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
+
   const handleCreatePDF = () => {
-    // Implement PDF creation logic
+    const cleanedLayout = cleanLayoutForAPI(layout);
+    if (cleanedLayout.missingFields.length > 0) {
+      // Show a toast message if any fields are missing
+      toast.error("PDF generation failed: Missing required fields.", {
+        position: "bottom-right",
+      });
+    } else {
+      //api call
+    }
   };
   return (
     <>
@@ -53,24 +88,24 @@ const AppLayout = () => {
       <ContentArea>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <WhiteBox sx={{ height: "40rem" }}>
-              <Typography variant="h6">Placeholder for Editable Component</Typography>
+            <WhiteBox sx={{ height: "100%" }}>
+              <NewspaperLayout />
             </WhiteBox>
           </Grid>
           <Grid item xs={12} md={4}>
-            <WhiteBox sx={{ height: "20rem" }}>
-              <Typography variant="h6">Placeholder for Control Panel</Typography>
-            </WhiteBox>
+            <GenerateNews currentText={currentText} setCurrentText={setCurrentText} />
             <div style={{ height: "1px", backgroundColor: "black", margin: "0rem 4rem" }}></div>
-            <Box mt={2} sx={{ display: "flex" }}>
+            <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
               <Button variant="outlined" startIcon={<ReplayIcon />}>
                 Undo
               </Button>
-              <div style={{ borderRight: "1px solid", marginLeft: "1rem" }}></div>
-              <Button variant="text">Reset the canvas</Button>
+              <div style={{ borderRight: "1px solid", marginLeft: "1rem", marginRight: "1rem" }}></div>
+              <Button onClick={handleReset} variant="outlined">
+                Reset the canvas
+              </Button>
             </Box>
             <div style={{ height: "1px", backgroundColor: "black", marginTop: "1rem" }}></div>
-            <Box mt={2} sx={{ display: "flex" }}>
+            <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="body2">
                 Want to save the changes made so far? <br></br>Click on the save button
               </Typography>
@@ -79,7 +114,7 @@ const AppLayout = () => {
               </ActionButton>
             </Box>
             <div style={{ height: "1px", backgroundColor: "black", marginTop: "1rem" }}></div>
-            <Box mt={2} sx={{ display: "flex" }}>
+            <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="body2">Done with editing? Click on this button to generate the PDF</Typography>
               <ActionButton
                 variant="contained"

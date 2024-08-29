@@ -1,12 +1,195 @@
-import "./App.css";
-import SampleComponent from "./components/SampleComponent";
+import React, { memo, useEffect } from "react";
+import AppLayout from "./components/AppLayout"; // Import the main layout component
+import "./App.css"; // Import any global styles
+import { useState, createContext } from "react";
+import axios from "axios";
+import { getDayOfWeek, getFormattedDate } from "./components/NewspaperLayout";
+export const LayoutContext = createContext();
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
-function App() {
+export const Context = React.createContext();
+const env = import.meta.env;
+
+const App = () => {
+  const [layout, setLayout] = useState(initializeLayout());
+
+  const fetchImageUrl = async (id) => {
+    try {
+      const res = await axios.post(
+        env.VITE_API_GET_IMAGE_URL,
+        { id },
+        {
+          mode: "cors",
+          headers: {},
+        }
+      );
+      return res.data.body;
+    } catch (error) {
+      console.error(`Error fetching image URL for id ${id}:`, error);
+      return null;
+    }
+  };
+
+  const fetchLayout = async () => {
+    try {
+      const res = await axios.get(env.VITE_API_GET_JSON, null, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const layoutData = res.data.body;
+      if (layoutData) {
+        const updatedLayout = { ...layoutData };
+
+        for (const newsId of newsIds) {
+          if (updatedLayout[newsId] && updatedLayout[newsId].id) {
+            const imageUrl = await fetchImageUrl(updatedLayout[newsId].id);
+            if (imageUrl) {
+              updatedLayout[newsId].imageDesc = imageUrl;
+            }
+          }
+        }
+
+        setLayout(updatedLayout);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLayout();
+  }, []);
+
   return (
-    <>
-      <SampleComponent></SampleComponent>
-    </>
+    <Context.Provider value={[layout, setLayout]}>
+      <div className="App">
+        <AppLayout />
+        <ToastContainer />
+      </div>
+    </Context.Provider>
   );
-}
+};
 
-export default App;
+export default memo(App);
+
+export const blankLayout = {
+  header: "NEWSWELL",
+  price: "$4.50 / 3.20",
+  country: "USA / UK",
+  banner: "MASTHEAD",
+  date: getFormattedDate(),
+  day: getDayOfWeek(),
+  issueNumber: "77",
+  bannerSubtitle: "Your daily source for the latest and greatest in San Diego.",
+  row1_1: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "5",
+    maxLimit: 108,
+    author: "",
+    headlineLimit: 0,
+  },
+  row1_2: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "5",
+    maxLimit: 108,
+    author: "",
+    headlineLimit: 0,
+  },
+  row1_3: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "5",
+    maxLimit: 108,
+    author: "",
+    headlineLimit: 0,
+  },
+  row2: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "4",
+    maxLimit: 524,
+    author: "",
+    headlineLimit: 34,
+  },
+  row3: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "2",
+    maxLimit: 233,
+    author: "",
+    headlineLimit: 57,
+    loading: false,
+  },
+  row4: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "2",
+    maxLimit: 144,
+    author: "",
+    headlineLimit: 57,
+  },
+  col1: {
+    id: "",
+    title: "",
+    body: "",
+    linkToPage: "2",
+    maxLimit: 291,
+    headlineLimit: 57,
+    author: "",
+  },
+};
+
+export const initializeLayout = () => {
+  let layout = structuredClone(blankLayout);
+  for (const newsId of newsIds) {
+    layout = {
+      ...layout,
+      [newsId]: {
+        ...layout[newsId],
+        image: "",
+        loading: false,
+      },
+    };
+  }
+  layout = { ...layout, selectedTextbox: "" };
+  return layout;
+};
+export const cleanLayoutForAPI = (layout) => {
+  const cleanedLayout = structuredClone(layout);
+  let missingFields = [];
+
+  for (const newsId of newsIds) {
+    if (cleanedLayout[newsId]) {
+      // Remove imageDesc and loading properties
+      delete cleanedLayout[newsId].image;
+      delete cleanedLayout[newsId].loading;
+
+      // Check if 'id' and 'body' fields are present and not empty
+      if (!cleanedLayout[newsId].id || !cleanedLayout[newsId].body) {
+        missingFields.push(newsId);
+      }
+
+      // If the newsId object is empty after removing properties, remove the entire object
+      if (Object.keys(cleanedLayout[newsId]).length === 0) {
+        delete cleanedLayout[newsId];
+      }
+    }
+  }
+
+  // Remove selectedTextbox property
+  delete cleanedLayout.selectedTextbox;
+
+  return { missingFields: missingFields, cleanedLayout: cleanedLayout };
+};
+export const newsIds = ["row1_1", "row1_2", "row1_3", "row2", "row3", "row4", "col1"];

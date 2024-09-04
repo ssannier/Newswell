@@ -7,7 +7,7 @@ import { getDayOfWeek, getFormattedDate } from "./components/NewspaperLayout";
 export const LayoutContext = createContext();
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import useHistoryState from "./useHistoryState";
+import useHistoryState from "./utils/useHistoryState";
 
 export const Context = React.createContext();
 const env = import.meta.env;
@@ -101,6 +101,7 @@ export const blankLayout = {
     maxLimit: 108,
     author: "",
     headlineLimit: 0,
+    imageSubtitle: "",
   },
   row1_2: {
     id: "",
@@ -109,6 +110,7 @@ export const blankLayout = {
     linkToPage: "",
     maxLimit: 108,
     author: "",
+    imageSubtitle: "",
     headlineLimit: 0,
   },
   row1_3: {
@@ -118,6 +120,7 @@ export const blankLayout = {
     linkToPage: "",
     maxLimit: 108,
     author: "",
+    imageSubtitle: "",
     headlineLimit: 0,
   },
   row2: {
@@ -127,6 +130,7 @@ export const blankLayout = {
     linkToPage: "",
     maxLimit: 524,
     author: "",
+    imageSubtitle: "",
     headlineLimit: 34,
   },
   row3: {
@@ -137,6 +141,7 @@ export const blankLayout = {
     maxLimit: 233,
     author: "",
     headlineLimit: 57,
+    imageSubtitle: "",
     loading: false,
   },
   row4: {
@@ -146,6 +151,7 @@ export const blankLayout = {
     linkToPage: "",
     maxLimit: 144,
     author: "",
+    imageSubtitle: "",
     headlineLimit: 57,
   },
   col1: {
@@ -155,6 +161,7 @@ export const blankLayout = {
     linkToPage: "",
     maxLimit: 291,
     headlineLimit: 57,
+    imageSubtitle: "",
     author: "",
   },
 };
@@ -166,7 +173,7 @@ export const initializeLayout = (tLayout) => {
       ...layout,
       [newsId]: {
         ...layout[newsId],
-        image: "",
+        imageDesc: "",
         loading: false,
       },
     };

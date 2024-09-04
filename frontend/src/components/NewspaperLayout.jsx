@@ -496,7 +496,9 @@ const MainContent = () => (
       <Grid item xs={4} sx={{ mb: 2 }}>
         <Row1 id={"row1_3"} width="10rem" height="8rem" />
       </Grid>
-      <Divider />
+      <Grid item xs={12}>
+        <Divider sx={{ my: 2 }} />
+      </Grid>
       <Grid container item xs={12}>
         <Row2 id={"row2"} width="19.5rem" height="23rem" />
       </Grid>

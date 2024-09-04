@@ -1,0 +1,87 @@
+{
+  "header": "NEWSWELL",
+  "price": "$4.50 / 3.20",
+  "country": "USA / UK",
+  "banner": "MASTHEAD",
+  "date": "SEPTEMBER 4, 2024",
+  "day": "WEDNESDAY",
+  "issueNumber": "77",
+  "bannerSubtitle": "Your daily source for the latest and greatest in San Diego.",
+  "row1_1": {
+    "id": "a5bfe0d6-e6fb-424d-83de-c8b8c519e701",
+    "title": "",
+    "body": "Skateboarding Drew\nBryce Wettstein of Encinitas at Olympics, But Her Passions Run Deeper",
+    "linkToPage": "See Page 5",
+    "maxLimit": 108,
+    "author": "",
+    "headlineLimit": 0,
+    "image": "",
+    "imageSubtitle": ""
+  },
+  "row1_2": {
+    "id": "4106badf-1873-435e-93ff-749dc8899fe8",
+    "title": "",
+    "body": "SD County Taxpayers Association, Crediting\nCEO Hong with Growth, Extends His Tenure",
+    "linkToPage": "See Page 5",
+    "maxLimit": 108,
+    "author": "",
+    "headlineLimit": 0,
+    "image": "",
+    "imageSubtitle": ""
+  },
+  "row1_3": {
+    "id": "3700a4ff-3291-4e3d-98ac-ad9b3ba12332",
+    "title": "",
+    "body": "Public Meetings on\nTrash Collection and\nServices Under\nMeasure B to Begin\nMonday",
+    "linkToPage": "See Page 5",
+    "maxLimit": 108,
+    "author": "By Sarah Jones | The Times",
+    "headlineLimit": 0,
+    "image": "",
+    "imageSubtitle": ""
+  },
+  "row2": {
+    "id": "d65b1082-e564-4b39-a6b3-3c846a1fc3fc",
+    "title": "Gas prices continue to drop locally and nationally",
+    "body": "The average price is 1.6 cents less than one week ago, 10.7 cents less than one month ago, and 40.3 cents less than one year ago, according to figures from the AAA and Oil Price Information Service. It has dropped $1.719 since rising to a record $6.435 on Oct. 5,\n2022. The national average price dropped for the eighth straight day. It is 3.2 cents less than one week ago. The national average price has dropped $1.542 since rising to a record $5.016 on June 14, 2022. The prices continue to fall steadily.",
+    "linkToPage": "Full story in page 4",
+    "maxLimit": 524,
+    "author": "By Jamie Watson | Etimes",
+    "headlineLimit": 34,
+    "image": "",
+    "imageSubtitle": "This aerial image captures a multi-lane highway interchange with steady traffic flow in both directions. Surrounding the roads are patches of greenery and a mix of industrial and natural landscapes. "
+  },
+  "row3": {
+    "id": "b23f6781-5663-4297-ac89-a8bda0846a52",
+    "title": "ALERTCalifornia images now available on Watch Duty app",
+    "body": "Watch Duty, the non-profit public safety information organization and app, has announced the addition of UC San Diego's ALERTCalifornia camera network to the platform, integrating the camera feeds directly into the Watch Duty map.",
+    "linkToPage": "More news on Page 2",
+    "maxLimit": 233,
+    "author": "By James Smith | The Times",
+    "headlineLimit": 57,
+    "image": "",
+    "imageSubtitle": ""
+  },
+  "row4": {
+    "id": "9e97a4e6-a028-4d49-85ea-4abe279cbad9",
+    "title": "Time to Fill Up: San Diego County Gas Prices Drop Again",
+    "body": "The average price of a gallon of self-serve regular gasoline in San Diego County dropped 1.5 cents Saturday to $4.743. The average price is 5.2.",
+    "linkToPage": "More news on Page 2",
+    "maxLimit": 144,
+    "author": "By James Smith | The Times",
+    "headlineLimit": 57,
+    "image": "",
+    "imageSubtitle": ""
+  },
+  "col1": {
+    "id": "1bd4298a-045a-4810-836c-22ffec624f4b",
+    "title": "Red Cross Seeking Donations to Meet Emergency Shortage",
+    "body": "The American Red Cross is seeking donations due to an emergency blood shortage exacerbated by dangerous heat levels during the end of vacation season. Since July 1, the Red Cross national blood supply has fallen by over 25% according to a news release from the Southern California Red Cross.",
+    "linkToPage": "More news on Page 2",
+    "maxLimit": 291,
+    "headlineLimit": 57,
+    "author": "By Jane Doe | The Times",
+    "image": "",
+    "imageSubtitle": ""
+  }
+}

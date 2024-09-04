@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress, Divider, TextField } from "@mui/material";
+import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress, Divider, TextField, Stack } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { styled } from "@mui/system";
@@ -50,11 +50,23 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const Row1 = ({ id, width, height }) => {
   return (
     <Box sx={{ display: "flex", alignItems: "flex-start" }}>
-      <HoverText id={id} height={height} width={width} />
+      <>
+        <Stack>
+          <HoverText id={id} height={height} width={width} />
+          <EditableField
+            id={id}
+            field="linkToPage"
+            placeholder="See page 5"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
+        </Stack>
+      </>
       <ImageUploader
         id={id}
         width={320}
-        height={211}
+        height={160}
         sx={{
           marginLeft: 2,
         }}
@@ -180,17 +192,42 @@ const Row2 = ({ id, width, height }) => {
           </IconButton>
         </Grid>
         <Grid item xs={12}>
+          <EditableField
+            id={id}
+            field="author"
+            placeholder="Example Julia Watson"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
           <HoverText id={id} width={width} height={height} />
+          <EditableField
+            id={id}
+            field="linkToPage"
+            placeholder="See full story in page 4"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
         </Grid>
       </Grid>
       <Grid item xs={8} sx={{ height: "100%" }}>
         <ImageUploader
           id={id}
-          width={648}
-          height={528}
+          width={624}
+          height={500}
           sx={{
             marginLeft: 2,
           }}
+        />
+        <EditableField
+          id={id}
+          field="imageSubtitle"
+          placeholder="A short description of the image"
+          displayText={(temp) => {
+            return temp;
+          }}
+          sx={{ fontWeight: 400, fontSize: 12, margin: "8px 0px 8px 17px" }}
         />
       </Grid>
     </>
@@ -227,7 +264,7 @@ const Row3 = ({ id, width, height }) => {
         </Grid>
 
         <Grid item xs={6}>
-          <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+          <ImageUploader id={id} width={304} height={300} placeholder="Add Image" />
         </Grid>
 
         <Grid item xs={6}>
@@ -324,7 +361,7 @@ const Row4 = ({ id, width, height }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+          <ImageUploader id={id} width={300} height={300} placeholder="Add Image" />
         </Grid>
       </Grid>
     </>
@@ -359,7 +396,7 @@ const Col1 = ({ id, width, height }) => {
         </Grid>
         <Grid container item>
           <Grid item xs={12}>
-            <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+            <ImageUploader id={id} width={300} height={300} placeholder="Add Image" />
           </Grid>
           <Grid item xs={12}>
             <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
@@ -396,7 +433,7 @@ const Col1 = ({ id, width, height }) => {
     </>
   );
 };
-const EditableField = ({ id, field, placeholder, displayText }) => {
+const EditableField = ({ id, field, placeholder, displayText, sx, ...props }) => {
   const splitAndLowerCase = (str) => {
     return str
       .split(/(?=[A-Z])/)
@@ -441,7 +478,7 @@ const EditableField = ({ id, field, placeholder, displayText }) => {
   }
 
   return (
-    <Typography variant="subtitle1" sx={{ fontWeight: "bold", cursor: "pointer" }} onClick={handleClick}>
+    <Typography variant="subtitle1" sx={{ fontWeight: "bold", cursor: "pointer", ...sx }} {...props} onClick={handleClick}>
       {value ? displayText(value) : `Click to add ${splitAndLowerCase(field)}`}
     </Typography>
   );
@@ -450,29 +487,29 @@ const EditableField = ({ id, field, placeholder, displayText }) => {
 const MainContent = () => (
   <Box sx={{ padding: 2 }}>
     <Grid container spacing={2}>
-      <Grid item xs={4}>
-        <Row1 id={"row1_1"} width="300px" height="13rem" />
+      <Grid item xs={4} sx={{ mb: 2 }}>
+        <Row1 id={"row1_1"} width="10rem" height="8rem" />
       </Grid>
-      <Grid item xs={4}>
-        <Row1 id={"row1_2"} width="300px" height="13rem" />
+      <Grid item xs={4} sx={{ mb: 2 }}>
+        <Row1 id={"row1_2"} width="10rem" height="8rem" />
       </Grid>
-      <Grid item xs={4}>
-        <Row1 id={"row1_3"} width="300px" height="13rem" />
+      <Grid item xs={4} sx={{ mb: 2 }}>
+        <Row1 id={"row1_3"} width="10rem" height="8rem" />
       </Grid>
-
+      <Divider />
       <Grid container item xs={12}>
-        <Row2 id={"row2"} width="100%" height="26rem" />
+        <Row2 id={"row2"} width="19.5rem" height="23rem" />
       </Grid>
       <Grid container item xs={8}>
         <Grid item xs={12}>
-          <Row3 id={"row3"} width="100%" height="10.5rem" />
+          <Row3 id={"row3"} width="19rem" height="10.5rem" />
         </Grid>
         <Grid item xs={12}>
-          <Row4 id={"row4"} width="100%" height="10.5rem" />
+          <Row4 id={"row4"} width="19rem" height="10.5rem" />
         </Grid>
       </Grid>
       <Grid container item xs={4}>
-        <Col1 id={"col1"} width="100%" height="15rem" />
+        <Col1 id={"col1"} width="19rem" height="15rem" />
       </Grid>
     </Grid>
   </Box>

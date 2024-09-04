@@ -46,14 +46,16 @@ const AppLayout = ({ layoutLoading }) => {
   const handleSave = async () => {
     setLoading(true);
     const cleanLayout = cleanLayoutForAPI(layout);
+
     try {
       const res = await axios.post(env.VITE_API_JSON_UPLOAD, cleanLayout.cleanedLayout, {
         mode: "cors",
-
         headers: {},
       });
       const message = res.data.body;
-      console.log(message);
+      toast.success("Newspaper Layout saved successfully", {
+        position: "bottom-right",
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     }

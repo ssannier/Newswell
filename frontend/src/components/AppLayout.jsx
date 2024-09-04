@@ -163,9 +163,9 @@ const AppLayout = ({ layoutLoading }) => {
           <Button onClick={handleCloseResetDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleReset} color="primary" autoFocus>
+          <ActionButton variant="contained" color="primary" onClick={handleReset} sx={{ "&:hover": { backgroundColor: "#357AE8" } }}>
             Reset
-          </Button>
+          </ActionButton>
         </DialogActions>
       </Dialog>
     </>

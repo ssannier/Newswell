@@ -54,6 +54,7 @@ const App = () => {
         for (const newsId of newsIds) {
           if (layoutData[newsId] && layoutData[newsId].id) {
             fetchImageUrl(newsId, layoutData[newsId].id);
+            layoutData[newsId].loading = true;
           } else {
             layoutData[newsId].loading = false;
           }
@@ -96,7 +97,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "5",
+    linkToPage: "",
     maxLimit: 108,
     author: "",
     headlineLimit: 0,
@@ -105,7 +106,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "5",
+    linkToPage: "",
     maxLimit: 108,
     author: "",
     headlineLimit: 0,
@@ -114,7 +115,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "5",
+    linkToPage: "",
     maxLimit: 108,
     author: "",
     headlineLimit: 0,
@@ -123,7 +124,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "4",
+    linkToPage: "",
     maxLimit: 524,
     author: "",
     headlineLimit: 34,
@@ -132,7 +133,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "2",
+    linkToPage: "",
     maxLimit: 233,
     author: "",
     headlineLimit: 57,
@@ -142,7 +143,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "2",
+    linkToPage: "",
     maxLimit: 144,
     author: "",
     headlineLimit: 57,
@@ -151,7 +152,7 @@ export const blankLayout = {
     id: "",
     title: "",
     body: "",
-    linkToPage: "2",
+    linkToPage: "",
     maxLimit: 291,
     headlineLimit: 57,
     author: "",
@@ -166,7 +167,7 @@ export const initializeLayout = (tLayout) => {
       [newsId]: {
         ...layout[newsId],
         image: "",
-        loading: true,
+        loading: false,
       },
     };
   }

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress, Divider } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress, Divider, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { styled } from "@mui/system";
@@ -240,15 +240,25 @@ const Row3 = ({ id, width, height }) => {
             </IconButton>
           </Grid>
 
-          <Typography variant="subtitle1" sx={{ mb: 2 }}>
-            By James Smith | The Times
-          </Typography>
+          <EditableField
+            id={id}
+            field="author"
+            placeholder="Example Jane Smith"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
 
           <HoverText id={id} width={width} height={height} />
 
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            More news page 2
-          </Typography>
+          <EditableField
+            id={id}
+            field="linkToPage"
+            placeholder="Example 2"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
         </Grid>
       </Grid>
     </>
@@ -293,15 +303,25 @@ const Row4 = ({ id, width, height }) => {
             </IconButton>
           </Grid>
 
-          <Typography variant="subtitle1" sx={{ mb: 2 }}>
-            By James Smith | The Times
-          </Typography>
+          <EditableField
+            id={id}
+            field="author"
+            placeholder="Example Jane Smith"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
 
           <HoverText id={id} width={width} height={height} />
 
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-            More news page 2
-          </Typography>
+          <EditableField
+            id={id}
+            field="linkToPage"
+            placeholder="Example 2"
+            displayText={(temp) => {
+              return temp;
+            }}
+          />
         </Grid>
         <Grid item xs={6}>
           <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
@@ -351,19 +371,79 @@ const Col1 = ({ id, width, height }) => {
               </IconButton>
             </Grid>
 
-            <Typography variant="subtitle1" sx={{ mb: 2 }}>
-              By James Smith | The Times
-            </Typography>
+            <EditableField
+              id={id}
+              field="author"
+              placeholder="Example Jane Smith"
+              displayText={(temp) => {
+                return temp;
+              }}
+            />
 
             <HoverText id={id} width={width} height={height} />
 
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-              More news page 2
-            </Typography>
+            <EditableField
+              id={id}
+              field="linkToPage"
+              placeholder="Example 2"
+              displayText={(temp) => {
+                return temp;
+              }}
+            />
           </Grid>
         </Grid>
       </Grid>
     </>
+  );
+};
+const EditableField = ({ id, field, placeholder, displayText }) => {
+  const splitAndLowerCase = (str) => {
+    return str
+      .split(/(?=[A-Z])/)
+      .join(" ")
+      .toLowerCase();
+  };
+
+  const [layout, setLayout] = useContext(Context);
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(layout?.[id]?.[field] || "");
+
+  const handleClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    setLayout((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: value,
+      },
+    }));
+    setIsEditing(false);
+  };
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+  useEffect(() => {
+    setValue(layout?.[id]?.[field]);
+  }, [layout?.[id]?.[field]]);
+  if (isEditing) {
+    return (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <TextField value={value} onChange={handleChange} placeholder={placeholder} size="small" fullWidth sx={{ mr: 1 }} />
+        <Button variant="contained" onClick={handleSave} size="small">
+          Save
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <Typography variant="subtitle1" sx={{ fontWeight: "bold", cursor: "pointer" }} onClick={handleClick}>
+      {value ? displayText(value) : `Click to add ${splitAndLowerCase(field)}`}
+    </Typography>
   );
 };
 

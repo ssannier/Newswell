@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress } from "@mui/material";
+import { Container, Grid, Typography, Paper, Box, Tooltip, Fade, IconButton, Button, CircularProgress, Divider } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
-import ImageIcon from "@mui/icons-material/Image";
 import { styled } from "@mui/system";
 import { Context } from "../App";
 import { getNews } from "./GenerateNews";
@@ -39,10 +38,6 @@ const Overlay = styled(Box)(({ theme }) => ({
 }));
 const TextBox = styled(Typography)(({ theme }) => ({
   position: "absolute",
-  // top: "50%",
-  // left: "50%",
-  // transform: "translate(-50%, -50%)",
-  // fontSize: "0.75rem",
   color: "#000",
   cursor: "pointer",
 }));
@@ -100,7 +95,7 @@ const HoverText = ({ id, width, height }) => {
         boxShadow: id === layout.selectedTextbox ? "0px 3px 3px -2px #abd8de, 0px 3px 4px 0px rgb(176 224 230), 0px 1px 8px 0px rgb(176 224 230)" : "none",
       }}
     >
-      <TextBox sx={{ height: "100%", fontSize: layout[id].body ? "0.75rem" : "1rem" }}>{layout[id].body || "Click here to add text"}</TextBox>
+      <TextBox sx={{ height: "100%", fontSize: layout[id].body ? "1rem" : "1rem" }}>{layout[id].body || "Click  to add text"}</TextBox>
       <Overlay className="overlay">
         <StyledButton variant="text" onClick={handleEdit} startIcon={<EditIcon />}>
           Edit
@@ -117,7 +112,6 @@ const NewspaperLayout = () => {
     <Container maxWidth="lg" sx={{ padding: "3rem !important" }}>
       <Header />
       <MainContent />
-      {/* </> */}
     </Container>
   );
 };
@@ -202,6 +196,176 @@ const Row2 = ({ id, width, height }) => {
     </>
   );
 };
+const Row3 = ({ id, width, height }) => {
+  const [layout, setLayout] = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGenerateHeadline = async () => {
+    setIsLoading(true);
+    const success = await generateHeadline(layout?.[id]?.body, layout?.[id]?.headlineLimit, id, function (response) {
+      setLayout((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          title: response,
+        },
+      }));
+    });
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Paper elevation={0} sx={{ padding: "1rem 0" }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "#FFFF00", width: "fit-content" }}>
+              TOP STORIES
+            </Typography>
+          </Paper>
+          <Divider />
+        </Grid>
+
+        <Grid item xs={6}>
+          <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+        </Grid>
+
+        <Grid item xs={6}>
+          <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+              {layout?.[id].title || "Click to generate headline"}
+            </Typography>
+            <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
+              {isLoading ? <CircularProgress size={24} /> : <AutorenewIcon />}
+            </IconButton>
+          </Grid>
+
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            By James Smith | The Times
+          </Typography>
+
+          <HoverText id={id} width={width} height={height} />
+
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            More news page 2
+          </Typography>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+const Row4 = ({ id, width, height }) => {
+  const [layout, setLayout] = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGenerateHeadline = async () => {
+    setIsLoading(true);
+    const success = await generateHeadline(layout?.[id]?.body, layout?.[id]?.headlineLimit, id, function (response) {
+      setLayout((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          title: response,
+        },
+      }));
+    });
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Paper elevation={0} sx={{ padding: "1rem 0" }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "#FFFF00", width: "fit-content" }}>
+              ECONOMICS
+            </Typography>
+          </Paper>
+          <Divider />
+        </Grid>
+        <Grid item xs={6}>
+          <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+              {layout?.[id].title || "Click to generate headline"}
+            </Typography>
+            <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
+              {isLoading ? <CircularProgress size={24} /> : <AutorenewIcon />}
+            </IconButton>
+          </Grid>
+
+          <Typography variant="subtitle1" sx={{ mb: 2 }}>
+            By James Smith | The Times
+          </Typography>
+
+          <HoverText id={id} width={width} height={height} />
+
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+            More news page 2
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+const Col1 = ({ id, width, height }) => {
+  const [layout, setLayout] = useContext(Context);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleGenerateHeadline = async () => {
+    setIsLoading(true);
+    const success = await generateHeadline(layout?.[id]?.body, layout?.[id]?.headlineLimit, id, function (response) {
+      setLayout((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          title: response,
+        },
+      }));
+    });
+    setIsLoading(false);
+  };
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Paper elevation={0} sx={{ padding: "1rem 0" }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "#FFFF00", width: "fit-content" }}>
+              CULTURE
+            </Typography>
+          </Paper>
+          <Divider />
+        </Grid>
+        <Grid container item>
+          <Grid item xs={12}>
+            <ImageUploader id={id} width="100%" height={300} placeholder="Add Image" />
+          </Grid>
+          <Grid item xs={12}>
+            <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="h6" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+                {layout?.[id].title || "Click to generate headline"}
+              </Typography>
+              <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
+                {isLoading ? <CircularProgress size={24} /> : <AutorenewIcon />}
+              </IconButton>
+            </Grid>
+
+            <Typography variant="subtitle1" sx={{ mb: 2 }}>
+              By James Smith | The Times
+            </Typography>
+
+            <HoverText id={id} width={width} height={height} />
+
+            <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+              More news page 2
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
+  );
+};
 
 const MainContent = () => (
   <Box sx={{ padding: 2 }}>
@@ -219,87 +383,21 @@ const MainContent = () => (
       <Grid container item xs={12}>
         <Row2 id={"row2"} width="100%" height="26rem" />
       </Grid>
+      <Grid container item xs={8}>
+        <Grid item xs={12}>
+          <Row3 id={"row3"} width="100%" height="10.5rem" />
+        </Grid>
+        <Grid item xs={12}>
+          <Row4 id={"row4"} width="100%" height="10.5rem" />
+        </Grid>
+      </Grid>
+      <Grid container item xs={4}>
+        <Col1 id={"col1"} width="100%" height="15rem" />
+      </Grid>
     </Grid>
   </Box>
 );
-const HoverableTextBox = ({ isTitle = false, isArticle = false }) => {
-  const [hover, setHover] = useState(false);
-  return (
-    <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
-      <Paper
-        sx={{
-          width: "100%", // Fixed size for text box
-          height: "13rem",
-          padding: 2,
-          backgroundColor: hover ? "rgba(0, 0, 0, 0.6)" : "transparent", // Black overlay with some transparency
-          color: hover ? "white" : "black", // Text color remains white on hover
-          transition: "background-color 0.3s ease, color 0.3s ease", // Smooth transition
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-        }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <Box sx={{ textAlign: "center" }}>
-          <Typography
-            variant={isArticle ? "caption" : "body2"}
-            gutterBottom
-            sx={{ color: hover ? "white" : "black" }} // Ensure text color remains white on hover
-          >
-            {isArticle ? "By James Smith / The Times" : isTitle ? "Click to title here" : "Click to add text"}
-          </Typography>
-          {!isArticle && !isTitle && (
-            <Typography
-              variant="caption"
-              gutterBottom
-              sx={{ color: hover ? "white" : "black" }} // Ensure text color remains white on hover
-            >
-              See Page 5
-            </Typography>
-          )}
-          {isArticle && (
-            <Typography
-              variant="body2"
-              component="p"
-              sx={{ zIndex: "1" }} // Ensure text color remains white on hover
-            >
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised
-              in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            </Typography>
-          )}
-        </Box>
-        <Fade in={hover} sx={{ zIndex: "100" }}>
-          <Box sx={{ position: "absolute", top: 8, right: 8, display: "flex", gap: 1 }}>
-            <Button sx={{ color: "white" }} variant="text" startIcon={<EditIcon />} size="small">
-              Edit
-            </Button>
-            <Button sx={{ color: "white" }} variant="text" startIcon={<AutorenewIcon />} size="small">
-              Regenerate
-            </Button>
-          </Box>
-        </Fade>
-      </Paper>
-      {!isArticle && !isTitle && (
-        <Box
-          sx={{
-            width: "20rem", // Same size as text box
-            height: "10rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#ECECEC",
-            marginLeft: 2,
-          }}
-        >
-          <ImageIcon sx={{ fontSize: "2rem" }} />
-        </Box>
-      )}
-    </Box>
-  );
-};
+
 export default NewspaperLayout;
 export function getDayOfWeek() {
   const date = new Date();

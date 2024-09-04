@@ -5,17 +5,18 @@ import { useState, createContext } from "react";
 import axios from "axios";
 import { getDayOfWeek, getFormattedDate } from "./components/NewspaperLayout";
 export const LayoutContext = createContext();
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import useHistoryState from "./useHistoryState";
 
 export const Context = React.createContext();
 const env = import.meta.env;
 
 const App = () => {
-  const [layout, setLayout] = useState(initializeLayout());
+  const [layout, setLayout, undo, redo] = useHistoryState(initializeLayout());
+  const [layoutLoading, setLayoutLoading] = useState(true);
 
-  const fetchImageUrl = async (id) => {
+  const fetchImageUrl = async (layoutId, id) => {
     try {
       const res = await axios.post(
         env.VITE_API_GET_IMAGE_URL,
@@ -25,7 +26,16 @@ const App = () => {
           headers: {},
         }
       );
-      return res.data.body;
+      const response = res.data.body;
+      setLayout((prev) => ({
+        ...prev,
+        [layoutId]: {
+          ...prev[layoutId],
+          imageDesc: response,
+          loading: false,
+        },
+      }));
+      return response;
     } catch (error) {
       console.error(`Error fetching image URL for id ${id}:`, error);
       return null;
@@ -39,34 +49,32 @@ const App = () => {
           "Content-Type": "application/json",
         },
       });
-      const layoutData = res.data.body;
+      const layoutData = initializeLayout(res.data.body);
       if (layoutData) {
-        const updatedLayout = { ...layoutData };
-
         for (const newsId of newsIds) {
-          if (updatedLayout[newsId] && updatedLayout[newsId].id) {
-            const imageUrl = await fetchImageUrl(updatedLayout[newsId].id);
-            if (imageUrl) {
-              updatedLayout[newsId].imageDesc = imageUrl;
-            }
+          if (layoutData[newsId] && layoutData[newsId].id) {
+            fetchImageUrl(newsId, layoutData[newsId].id);
+          } else {
+            layoutData[newsId].loading = false;
           }
         }
-
-        setLayout(updatedLayout);
       }
+      setLayout(layoutData);
     } catch (error) {
+      setLayout(initializeLayout());
       console.error("Error fetching data:", error);
+    } finally {
+      setLayoutLoading(false);
     }
   };
-
   useEffect(() => {
     fetchLayout();
   }, []);
 
   return (
-    <Context.Provider value={[layout, setLayout]}>
+    <Context.Provider value={[layout, setLayout, undo, redo]}>
       <div className="App">
-        <AppLayout />
+        <AppLayout layoutLoading={layoutLoading} />
         <ToastContainer />
       </div>
     </Context.Provider>
@@ -150,19 +158,20 @@ export const blankLayout = {
   },
 };
 
-export const initializeLayout = () => {
-  let layout = structuredClone(blankLayout);
+export const initializeLayout = (tLayout) => {
+  let layout = structuredClone(tLayout || blankLayout);
   for (const newsId of newsIds) {
     layout = {
       ...layout,
       [newsId]: {
         ...layout[newsId],
         image: "",
-        loading: false,
+        loading: true,
       },
     };
   }
   layout = { ...layout, selectedTextbox: "" };
+
   return layout;
 };
 export const cleanLayoutForAPI = (layout) => {
@@ -172,21 +181,18 @@ export const cleanLayoutForAPI = (layout) => {
   for (const newsId of newsIds) {
     if (cleanedLayout[newsId]) {
       // Remove imageDesc and loading properties
-      delete cleanedLayout[newsId].image;
+      delete cleanedLayout[newsId].imageDesc;
       delete cleanedLayout[newsId].loading;
-
       // Check if 'id' and 'body' fields are present and not empty
       if (!cleanedLayout[newsId].id || !cleanedLayout[newsId].body) {
         missingFields.push(newsId);
       }
-
       // If the newsId object is empty after removing properties, remove the entire object
       if (Object.keys(cleanedLayout[newsId]).length === 0) {
         delete cleanedLayout[newsId];
       }
     }
   }
-
   // Remove selectedTextbox property
   delete cleanedLayout.selectedTextbox;
 

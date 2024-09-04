@@ -18,9 +18,11 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+const env = import.meta.env;
 
 const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
   const [layout, setLayout] = useContext(Context);
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(2);
@@ -72,9 +74,9 @@ const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
     async (e) => {
       setIsSaving(true);
       const imageToUpload = croppedImage || selectedFile;
-      let url = process.env.VITE_API_IMAGE_UPLOAD;
+      let url = env.VITE_API_IMAGE_UPLOAD;
       if (layout[id].id) {
-        url = process.env.VITE_API_IMAGE_REWRITE + `?id=${layout[id].id}`;
+        url = env.VITE_API_IMAGE_REWRITE + `?id=${layout[id].id}`;
       }
 
       setLayout((prev) => ({
@@ -90,7 +92,7 @@ const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
         if (imageToUpload.startsWith("data:image")) {
           // It's a base64 image
           const base64data = imageToUpload.split(",")[1];
-          response = await axios.post(url, base64data, { mode: "cors" });
+          response = await axios.post(url, base64data);
         } else {
           // It's a URL, just save it as is
           response = { data: { id: layout[id].id } };
@@ -169,152 +171,164 @@ const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
 
   const open = Boolean(anchorEl);
   return (
-    <Box sx={{ width, height, cursor: "pointer", ...props.sx }}>
-      {!selectedFile ? (
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "#ECECEC",
-            cursor: "pointer",
-          }}
-        >
-          <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-${id}`} onChange={handleFileChange} />
-          <label
-            htmlFor={`raised-button-file-${id}`}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ImageIcon sx={{ fontSize: "2rem" }} />
-          </label>
-        </Box>
+    <>
+      {layout[id]?.loading ? (
+        <>
+          <Box sx={{ height, width, justifyContent: "center", alignItems: "center", display: "flex", background: "#ececec" }}>
+            <CircularProgress size={24} />
+          </Box>
+        </>
       ) : (
         <>
-          <Box
-            sx={{
-              position: "relative",
-              width: "100%",
-              height: "100%",
-              overflow: "hidden",
-            }}
-            onClick={(e) => setAnchorEl(e.currentTarget)}
-          >
-            {!croppedImage ? (
-              <Cropper
-                image={selectedFile}
-                crop={crop}
-                zoom={zoom}
-                aspect={width / height}
-                onCropChange={setCrop}
-                onCropComplete={onCropComplete}
-                onZoomChange={handleZoomChange}
-                cropSize={{ width, height }}
-                style={{
-                  containerStyle: { width: "100%", height: "100%" },
-                  cropAreaStyle: { width: "100%", height: "100%" },
-                }}
-              />
-            ) : (
+          <Box sx={{ width, height, cursor: "pointer", ...props.sx }}>
+            {!selectedFile ? (
               <Box
-                component="img"
-                src={croppedImage}
                 sx={{
                   width: "100%",
                   height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            )}
-
-            {isEdited && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleSave();
-                }}
-                disabled={isSaving}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                  backgroundColor: "rgba(255, 255, 255, 0.7)",
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  },
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#ECECEC",
+                  cursor: "pointer",
                 }}
               >
-                {isSaving ? <CircularProgress size={24} /> : <SaveIcon />}
-              </IconButton>
-            )}
-          </Box>
-          <Popover
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          >
-            <Box
-              sx={{
-                p: 2,
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                alignItems: "center",
-              }}
-            >
-              {!croppedImage && (
-                <>
-                  <Typography id={`zoom-slider-${id}`} gutterBottom>
-                    Zoom
-                  </Typography>
-                  <Slider value={zoom} min={0.1} max={3} step={0.1} aria-labelledby={`zoom-slider-${id}`} onChange={handleZoomChange} sx={{ width: 200 }} />
-                </>
-              )}
-              {!croppedImage ? (
-                <>
-                  {/* <Button onClick={showCroppedImage} variant="outlined" color="secondary" fullWidth>
+                <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-${id}`} onChange={handleFileChange} />
+                <label
+                  htmlFor={`raised-button-file-${id}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <ImageIcon sx={{ fontSize: "2rem" }} />
+                </label>
+              </Box>
+            ) : (
+              <>
+                <Box
+                  sx={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                    overflow: "hidden",
+                  }}
+                  onClick={(e) => setAnchorEl(e.currentTarget)}
+                >
+                  {!croppedImage ? (
+                    <Cropper
+                      image={selectedFile}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={width / height}
+                      onCropChange={setCrop}
+                      onCropComplete={onCropComplete}
+                      onZoomChange={handleZoomChange}
+                      cropSize={{ width, height }}
+                      style={{
+                        containerStyle: { width: "100%", height: "100%" },
+                        cropAreaStyle: { width: "100%", height: "100%" },
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      component="img"
+                      src={croppedImage}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
+
+                  {isEdited && (
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSave();
+                      }}
+                      disabled={isSaving}
+                      sx={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8,
+                        backgroundColor: "rgba(255, 255, 255, 0.7)",
+                        "&:hover": {
+                          backgroundColor: "rgba(255, 255, 255, 0.9)",
+                        },
+                      }}
+                    >
+                      {isSaving ? <CircularProgress size={24} /> : <SaveIcon />}
+                    </IconButton>
+                  )}
+                </Box>
+                <Popover
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 2,
+                      alignItems: "center",
+                    }}
+                  >
+                    {!croppedImage && (
+                      <>
+                        <Typography id={`zoom-slider-${id}`} gutterBottom>
+                          Zoom
+                        </Typography>
+                        <Slider value={zoom} min={0.1} max={3} step={0.1} aria-labelledby={`zoom-slider-${id}`} onChange={handleZoomChange} sx={{ width: 200 }} />
+                      </>
+                    )}
+                    {!croppedImage ? (
+                      <>
+                        {/* <Button onClick={showCroppedImage} variant="outlined" color="secondary" fullWidth>
                     Crop Image
                   </Button> */}
-                  <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-new-${id}`} onChange={handleFileChange} />
-                  <label htmlFor={`raised-button-file-new-${id}`} style={{ width: "100%" }}>
-                    <Button variant="outlined" color="primary" fullWidth component="span">
-                      New Image
-                    </Button>
-                  </label>
-                </>
-              ) : (
-                <>
-                  <Button onClick={resetImage} variant="outlined" color="secondary" fullWidth>
-                    Re-crop
-                  </Button>
-                  <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-new-${id}`} onChange={handleFileChange} />
-                  <label htmlFor={`raised-button-file-new-${id}`} style={{ width: "100%" }}>
-                    <Button variant="outlined" color="primary" fullWidth component="span">
-                      New Image
-                    </Button>
-                  </label>
-                </>
-              )}
-            </Box>
-          </Popover>
+                        <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-new-${id}`} onChange={handleFileChange} />
+                        <label htmlFor={`raised-button-file-new-${id}`} style={{ width: "100%" }}>
+                          <Button variant="outlined" color="primary" fullWidth component="span">
+                            New Image
+                          </Button>
+                        </label>
+                      </>
+                    ) : (
+                      <>
+                        <Button onClick={resetImage} variant="outlined" color="secondary" fullWidth>
+                          Re-crop
+                        </Button>
+                        <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-new-${id}`} onChange={handleFileChange} />
+                        <label htmlFor={`raised-button-file-new-${id}`} style={{ width: "100%" }}>
+                          <Button variant="outlined" color="primary" fullWidth component="span">
+                            New Image
+                          </Button>
+                        </label>
+                      </>
+                    )}
+                  </Box>
+                </Popover>
+              </>
+            )}
+          </Box>
         </>
       )}
-    </Box>
+    </>
   );
 };
 

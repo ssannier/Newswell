@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { AppBar, Toolbar, Typography, Grid, Button, Box, Paper } from "@mui/material";
+import { AppBar, Toolbar, Typography, Grid, Button, Box, Paper, CircularProgress } from "@mui/material";
 import { styled } from "@mui/system";
 import ReplayIcon from "@mui/icons-material/Replay";
 import NewspaperLayout from "./NewspaperLayout";
@@ -9,7 +9,6 @@ import { cleanLayoutForAPI, Context, initializeLayout } from "../App";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Assuming you're using react-toastify for toast notifications
-
 const StyledAppBar = styled(AppBar)({
   backgroundColor: "white",
   boxShadow: "none",
@@ -26,8 +25,8 @@ const ContentArea = styled(Box)({
 const WhiteBox = styled(Paper)({
   backgroundColor: "white",
   borderRadius: "8px",
-  padding: "20px",
-  marginBottom: "20px",
+  // padding: "20px",
+  // marginBottom: "20px",
   height: "100%",
 });
 const ActionButton = styled(Button)({
@@ -35,22 +34,20 @@ const ActionButton = styled(Button)({
 });
 const env = import.meta.env;
 
-const AppLayout = () => {
-  const [layout, setLayout] = useContext(Context);
+const AppLayout = ({ layoutLoading }) => {
+  const [layout, setLayout, undo, redo] = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [currentText, setCurrentText] = useState("");
-  const handleUndo = () => {
-    // Implement undo logic
-  };
+
   const handleReset = () => {
     setLayout(initializeLayout());
   };
 
   const handleSave = async () => {
     setLoading(true);
-
+    const cleanLayout = cleanLayoutForAPI(layout);
     try {
-      const res = await axios.post(env.VITE_API_JSON_UPLOAD, layout, {
+      const res = await axios.post(env.VITE_API_JSON_UPLOAD, cleanLayout.cleanedLayout, {
         mode: "cors",
 
         headers: {},
@@ -89,14 +86,22 @@ const AppLayout = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <WhiteBox sx={{ height: "100%" }}>
-              <NewspaperLayout />
+              {layoutLoading ? (
+                <>
+                  <Box sx={{ height: "100%", width: "100%", justifyContent: "center", alignItems: "center", display: "flex" }}>
+                    <CircularProgress size={60} />
+                  </Box>
+                </>
+              ) : (
+                <NewspaperLayout />
+              )}
             </WhiteBox>
           </Grid>
           <Grid item xs={12} md={4}>
             <GenerateNews currentText={currentText} setCurrentText={setCurrentText} />
             <div style={{ height: "1px", backgroundColor: "black", margin: "0rem 4rem" }}></div>
             <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="outlined" startIcon={<ReplayIcon />}>
+              <Button variant="outlined" startIcon={<ReplayIcon />} onClick={undo}>
                 Undo
               </Button>
               <div style={{ borderRight: "1px solid", marginLeft: "1rem", marginRight: "1rem" }}></div>

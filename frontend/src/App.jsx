@@ -174,6 +174,7 @@ export const initializeLayout = (tLayout) => {
       [newsId]: {
         ...layout[newsId],
         imageDesc: "",
+        id: tLayout ? layout[newsId].id : "",
         loading: false,
       },
     };

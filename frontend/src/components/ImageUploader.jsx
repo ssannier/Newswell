@@ -32,12 +32,15 @@ const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [file, setFile] = useState();
-
   useEffect(() => {
     // Check if there's an existing image in the layout
     if (layout[id] && layout[id].imageDesc) {
       setSelectedFile(layout[id].imageDesc);
       setCroppedImage(layout[id].imageDesc);
+    } else {
+      // Reset state if no image in layout
+      setSelectedFile(null);
+      setCroppedImage(null);
     }
   }, [layout, id]);
 

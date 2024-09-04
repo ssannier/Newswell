@@ -8,7 +8,10 @@ import { useContext } from "react";
 import { cleanLayoutForAPI, Context, initializeLayout } from "../App";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Assuming you're using react-toastify for toast notifications
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+
+import "react-toastify/dist/ReactToastify.css";
+// Assuming you're using react-toastify for toast notifications
 const StyledAppBar = styled(AppBar)({
   backgroundColor: "white",
   boxShadow: "none",
@@ -38,9 +41,19 @@ const AppLayout = ({ layoutLoading }) => {
   const [layout, setLayout, undo, redo] = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [currentText, setCurrentText] = useState("");
+  const [openResetDialog, setOpenResetDialog] = useState(false);
+
+  const handleOpenResetDialog = () => {
+    setOpenResetDialog(true);
+  };
+
+  const handleCloseResetDialog = () => {
+    setOpenResetDialog(false);
+  };
 
   const handleReset = () => {
     setLayout(initializeLayout());
+    handleCloseResetDialog();
   };
 
   const handleSave = async () => {
@@ -107,7 +120,7 @@ const AppLayout = ({ layoutLoading }) => {
                 Undo
               </Button>
               <div style={{ borderRight: "1px solid", marginLeft: "1rem", marginRight: "1rem" }}></div>
-              <Button onClick={handleReset} variant="outlined">
+              <Button onClick={handleOpenResetDialog} variant="outlined">
                 Reset the canvas
               </Button>
             </Box>
@@ -141,6 +154,20 @@ const AppLayout = ({ layoutLoading }) => {
           </Grid>
         </Grid>
       </ContentArea>
+      <Dialog open={openResetDialog} onClose={handleCloseResetDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{"Confirm Reset"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">Are you sure you want to reset the canvas? This action cannot be undone.</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseResetDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleReset} color="primary" autoFocus>
+            Reset
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

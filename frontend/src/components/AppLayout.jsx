@@ -157,7 +157,7 @@ const AppLayout = ({ layoutLoading }) => {
       <Dialog open={openResetDialog} onClose={handleCloseResetDialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{"Confirm Reset"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">Are you sure you want to reset the canvas? This action cannot be undone.</DialogContentText>
+          <DialogContentText id="alert-dialog-description">Are you sure you want to reset the canvas?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseResetDialog} color="primary">

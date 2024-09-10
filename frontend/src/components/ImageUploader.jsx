@@ -183,7 +183,7 @@ const ImageUploader = ({ width = "100%", height = "100%", id, ...props }) => {
         </>
       ) : (
         <>
-          <Box sx={{ width, height, cursor: "pointer", ...props.sx }}>
+          <Box sx={{ width, height, cursor: "pointer", ...props.sx }} id={id}>
             {!selectedFile ? (
               <Box
                 sx={{

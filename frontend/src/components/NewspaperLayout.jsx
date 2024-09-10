@@ -75,6 +75,7 @@ const Row1 = ({ id, width, height }) => {
   );
 };
 const HoverText = ({ id, width, height }) => {
+  const [loading, setLoading] = useState(false);
   const [layout, setLayout] = useContext(Context);
   const handleEdit = () => {
     setLayout((prev) => {
@@ -83,17 +84,19 @@ const HoverText = ({ id, width, height }) => {
   };
   const handleRegenerate = () => {
     setLayout((prev) => {
-      return { ...prev, [id]: { ...prev[id], loading: true } };
+      return { ...prev, [id]: { ...prev[id] } };
     });
+    setLoading(true);
     getNews(layout[id]?.body, layout[id]?.maxLimit, "", function (res) {
       setLayout((prev) => {
+        setLoading(false);
         return {
           ...prev,
           selectedTextbox: id,
           [id]: {
             ...prev[id],
             body: res,
-            loading: false,
+            // loading: false,
           },
         };
       });
@@ -107,7 +110,15 @@ const HoverText = ({ id, width, height }) => {
         boxShadow: id === layout.selectedTextbox ? "0px 3px 3px -2px #abd8de, 0px 3px 4px 0px rgb(176 224 230), 0px 1px 8px 0px rgb(176 224 230)" : "none",
       }}
     >
-      <TextBox sx={{ height: "100%", fontSize: layout[id].body ? "1rem" : "1rem" }}>{layout[id].body || "Click  to add text"}</TextBox>
+      <TextBox sx={{ height: "100%", width: "100%", fontSize: layout[id].body ? "1rem" : "1rem" }}>
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          layout[id].body || "Click to add text"
+        )}
+      </TextBox>
       <Overlay className="overlay">
         <StyledButton variant="text" onClick={handleEdit} startIcon={<EditIcon />}>
           Edit

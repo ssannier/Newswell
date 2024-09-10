@@ -93,47 +93,49 @@ const AppLayout = ({ layoutLoading }) => {
   };
   const downloadLayoutImages = async (layout, newsIds) => {
     try {
-      for (const newsId of newsIds) {
+      // Create an array of promises to fetch and download each image
+      const downloadPromises = newsIds.map(async (newsId) => {
         const item = layout[newsId];
-        if (item.imageDesc) {
-          if (item.imageDesc.startsWith("https://")) {
-            fetch(item.imageDesc, {
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-              },
-            })
-              .then((response) => {
-                // Convert the response to a blob
-                return response.blob();
-              })
-              .then((blob) => {
-                // Create a download link for the file
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "" + item.id + ".jpg"; // Adjust extension if necessary
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url); // Clean up URL object after download
-              })
-              .catch((error) => {
-                // Handle any errors
-                console.error("Error downloading file:", error);
-              });
+        if (item?.imageDesc?.startsWith("https://")) {
+          try {
+            // Fetch the image
+            const response = await fetch(item.imageDesc, {
+              mode: "cors",
+              cache: "no-cache",
+            });
+            if (!response.ok) {
+              throw new Error(`Failed to fetch image: ${response.statusText}`);
+            }
+            // Convert the response to a blob
+            const blob = await response.blob();
+            // Create a download link for the file
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${item.id}.jpg`; // Adjust extension if necessary
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url); // Clean up URL object after download
+          } catch (error) {
+            console.error(`Error downloading file for newsId ${newsId}:`, error);
           }
         }
-      }
+      });
+
+      // Wait for all download promises to complete
+      await Promise.all(downloadPromises);
+      console.log("All images downloaded successfully.");
     } catch (error) {
-      console.error("Error downloading layout images and IDML:", error);
+      console.error("Error downloading layout images:", error);
       throw error;
     }
   };
   const generateIDML = async () => {
     try {
-      const response = await fetch("https://nrcetz8fb3.execute-api.us-east-1.amazonaws.com/dev/idml-gen");
-      if (response.status === 200) {
-        const data = await response.json();
+      const fetchresponse = await fetch("https://nrcetz8fb3.execute-api.us-east-1.amazonaws.com/dev/idml-gen");
+      if (fetchresponse.status === 200) {
+        const data = await fetchresponse.json();
         return downloadFileFromS3(data.s3_presigned_url, "newspaper.idml"); // Return the S3 path
       } else {
         throw new Error("API call failed");

@@ -103,6 +103,14 @@ const ImageUploader = ({ id, height, width }) => {
 
         const croppedBlob = await getCroppedImageBlob(selectedFile, croppedAreaPixels, boxWidth, boxHeight);
         croppedFile = new File([croppedBlob], selectedFile.name, { type: selectedFile.type });
+        // setLayout((prev) => ({
+        //   ...prev,
+        //   [id]: {
+        //     ...prev[id],
+        //     //  id: newFileId,
+        //     imageDesc: croppedFile,
+        //   },
+        // }));
       }
 
       // Perform new upload or re-upload based on whether an image ID exists
@@ -203,35 +211,24 @@ const ImageUploader = ({ id, height, width }) => {
 
         const { x, y, width, height } = croppedAreaPixels;
 
-        // Set the canvas size to the size of the crop box
-        canvas.width = boxWidth;
-        canvas.height = boxHeight;
+        // Set the canvas size to the exact size of the crop area (no scaling)
+        canvas.width = width;
+        canvas.height = height;
 
-        // Calculate scaling factor based on the crop area and box size
-        const scaleX = boxWidth / width;
-        const scaleY = boxHeight / height;
-
-        // Ensure uniform scaling to fit the crop box while maintaining aspect ratio
-        const scale = Math.min(scaleX, scaleY);
-
-        // Adjust the position of the cropped area to center it in the box
-        const offsetX = (boxWidth - width * scale) / 2;
-        const offsetY = (boxHeight - height * scale) / 2;
-
-        // Draw the cropped image to the canvas, scaled to fit the box
+        // Draw the cropped area of the image directly onto the canvas
         ctx.drawImage(
           image,
           x,
           y,
           width,
-          height, // Source: crop area from original image
-          offsetX,
-          offsetY,
-          width * scale,
-          height * scale // Destination: fit it to the canvas
+          height, // Source: crop area in the original image
+          0,
+          0,
+          width,
+          height // Destination: exactly fill the canvas
         );
 
-        // Convert canvas to a Blob (the same file type as the original image)
+        // Convert the canvas to a Blob (same file type as the original image)
         canvas.toBlob((blob) => {
           if (blob) {
             resolve(blob);
@@ -261,6 +258,7 @@ const ImageUploader = ({ id, height, width }) => {
             position: "relative",
             background: "#ECECEC",
           }}
+          id={id}
         >
           {selectedFile ? (
             <>
@@ -306,7 +304,7 @@ const ImageUploader = ({ id, height, width }) => {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover",
+                        objectFit: "contain",
                       }}
                     />
                   </>
@@ -368,6 +366,9 @@ const ImageUploader = ({ id, height, width }) => {
                           className="zoom-range"
                         />
                       </div>
+                      <Button variant="contained" color="primary" fullWidth component="span" onClick={handleSave} sx={{ mb: 2 }}>
+                        Save Image
+                      </Button>
                     </>
                   )}
                   <VisuallyHiddenInput type="file" accept="image/*" id={`raised-button-file-new-${id}`} onChange={handleFileChange} ref={fileInputRef} />

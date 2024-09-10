@@ -5,10 +5,10 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { styled } from "@mui/system";
 import { Context } from "../App";
 import { getNews } from "./GenerateNews";
-import ImageUploader from "./ImageUploader";
-
-const env = import.meta.env;
+// import ImageUploader from "./ImageUploader";
+import ImageUploader from "./UploadImage";
 import axios from "axios";
+const env = import.meta.env;
 
 const OverlayBox = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -65,7 +65,7 @@ const Row1 = ({ id, width, height }) => {
       </>
       <ImageUploader
         id={id}
-        width={320}
+        width={148}
         height={160}
         sx={{
           marginLeft: 2,

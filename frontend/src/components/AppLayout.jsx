@@ -5,12 +5,14 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import NewspaperLayout from "./NewspaperLayout";
 import GenerateNews from "./GenerateNews";
 import { useContext } from "react";
-import { cleanLayoutForAPI, Context, initializeLayout } from "../App";
+import { cleanLayoutForAPI, Context, initializeLayout, newsIds } from "../App";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import "react-toastify/dist/ReactToastify.css";
+
 // Assuming you're using react-toastify for toast notifications
 const StyledAppBar = styled(AppBar)({
   backgroundColor: "white",
@@ -74,17 +76,94 @@ const AppLayout = ({ layoutLoading }) => {
     }
   };
 
-  const handleCreatePDF = () => {
+  const handleCreatePDF = async () => {
     const cleanedLayout = cleanLayoutForAPI(layout);
     if (cleanedLayout.missingFields.length > 0) {
-      // Show a toast message if any fields are missing
       toast.error("PDF generation failed: Missing required fields.", {
         position: "bottom-right",
       });
     } else {
-      //api call
+      await generateIDML();
+      await downloadLayoutImages(layout, newsIds);
+
+      toast.success("Check now", {
+        position: "bottom-right",
+      });
     }
   };
+  const downloadLayoutImages = async (layout, newsIds) => {
+    try {
+      for (const newsId of newsIds) {
+        const item = layout[newsId];
+        if (item.imageDesc) {
+          if (item.imageDesc.startsWith("https://")) {
+            fetch(item.imageDesc, {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+              },
+            })
+              .then((response) => {
+                // Convert the response to a blob
+                return response.blob();
+              })
+              .then((blob) => {
+                // Create a download link for the file
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "" + item.id + ".jpg"; // Adjust extension if necessary
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url); // Clean up URL object after download
+              })
+              .catch((error) => {
+                // Handle any errors
+                console.error("Error downloading file:", error);
+              });
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error downloading layout images and IDML:", error);
+      throw error;
+    }
+  };
+  const generateIDML = async () => {
+    try {
+      const response = await fetch("https://nrcetz8fb3.execute-api.us-east-1.amazonaws.com/dev/idml-gen");
+      if (response.status === 200) {
+        const data = await response.json();
+        return downloadFileFromS3(data.s3_presigned_url, "newspaper.idml"); // Return the S3 path
+      } else {
+        throw new Error("API call failed");
+      }
+    } catch (error) {
+      console.error("Error generating IDML:", error);
+      throw error;
+    }
+  };
+  const downloadFileFromS3 = async (fileUrl, fileName) => {
+    try {
+      const response = await fetch(fileUrl);
+      if (response.status === 200) {
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.setAttribute("download", fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } else {
+        throw new Error("Error downloading file");
+      }
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      throw error;
+    }
+  };
+
   return (
     <>
       <StyledAppBar position="static">

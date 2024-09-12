@@ -12,6 +12,9 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import "react-toastify/dist/ReactToastify.css";
+import LinearProgressWithLabel from "./LinearProgressWithLabel";
+import downloadGif from "../assets/download.gif"; // Import your GIF
+import successGif from "../assets/success.gif"; // Import your GIF
 
 // Assuming you're using react-toastify for toast notifications
 const StyledAppBar = styled(AppBar)({
@@ -75,68 +78,16 @@ const AppLayout = ({ layoutLoading }) => {
       console.error("Error fetching data:", error);
     }
   };
-
-  const handleCreatePDF = async () => {
-    const cleanedLayout = cleanLayoutForAPI(layout);
-    if (cleanedLayout.missingFields.length > 0) {
-      toast.error("PDF generation failed: Missing required fields.", {
-        position: "bottom-right",
-      });
-    } else {
-      await generateIDML();
-      await downloadLayoutImages(layout, newsIds);
-
-      toast.success("Check now", {
-        position: "bottom-right",
-      });
-    }
-  };
-  const downloadLayoutImages = async (layout, newsIds) => {
-    try {
-      // Create an array of promises to fetch and download each image
-      const downloadPromises = newsIds.map(async (newsId) => {
-        const item = layout[newsId];
-        if (item?.imageDesc?.startsWith("https://")) {
-          try {
-            // Fetch the image
-            const response = await fetch(item.imageDesc, {
-              mode: "cors",
-              cache: "no-cache",
-            });
-            if (!response.ok) {
-              throw new Error(`Failed to fetch image: ${response.statusText}`);
-            }
-            // Convert the response to a blob
-            const blob = await response.blob();
-            // Create a download link for the file
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = `${item.id}.jpg`; // Adjust extension if necessary
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url); // Clean up URL object after download
-          } catch (error) {
-            console.error(`Error downloading file for newsId ${newsId}:`, error);
-          }
-        }
-      });
-
-      // Wait for all download promises to complete
-      await Promise.all(downloadPromises);
-      console.log("All images downloaded successfully.");
-    } catch (error) {
-      console.error("Error downloading layout images:", error);
-      throw error;
-    }
-  };
-  const generateIDML = async () => {
+  // Function to generate IDML and download both images and IDML in a zip
+  const generateIDML = async (zip) => {
     try {
       const fetchresponse = await fetch("https://nrcetz8fb3.execute-api.us-east-1.amazonaws.com/dev/idml-gen");
       if (fetchresponse.status === 200) {
         const data = await fetchresponse.json();
-        return downloadFileFromS3(data.s3_presigned_url, "newspaper.idml"); // Return the S3 path
+        const fileBlob = await downloadFileFromS3(data.s3_presigned_url);
+
+        // Add the IDML file to the zip, specifying binary handling
+        zip.file("newspaper.idml", fileBlob, { binary: true });
       } else {
         throw new Error("API call failed");
       }
@@ -145,18 +96,13 @@ const AppLayout = ({ layoutLoading }) => {
       throw error;
     }
   };
-  const downloadFileFromS3 = async (fileUrl, fileName) => {
+
+  // Function to download the file from S3 and return it as a blob
+  const downloadFileFromS3 = async (fileUrl) => {
     try {
       const response = await fetch(fileUrl);
       if (response.status === 200) {
-        const blob = await response.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.setAttribute("download", fileName);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+        return await response.blob(); // Return the blob, no need to trigger the download here
       } else {
         throw new Error("Error downloading file");
       }
@@ -166,6 +112,127 @@ const AppLayout = ({ layoutLoading }) => {
     }
   };
 
+  // Main function to create a zip with both images and the IDML file
+  const handleCreatePDF = async () => {
+    const cleanedLayout = cleanLayoutForAPI(layout);
+    const numberOfImages = newsIds.length;
+    const totalTasks = numberOfImages * 2 + 2; // Adjusting for tasks
+    let progress = 0;
+    let currentTask = "Starting PDF Generation...";
+
+    const toastId = toast.info(
+      <>
+        <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+          <Typography variant="body2">{currentTask}</Typography>
+          <LinearProgressWithLabel value={0} />
+        </Box>
+      </>,
+      {
+        position: "bottom-right",
+        autoClose: false,
+        icon: ({ theme, type }) => <img src={downloadGif} alt="Downloading..." width={24} height={24} style={{ marginRight: "8px" }} />,
+        closeOnClick: false,
+        draggable: false,
+        progress: 0,
+      }
+    );
+
+    const updateProgress = (increment, task) => {
+      progress += increment;
+      currentTask = task;
+
+      toast.update(toastId, {
+        render: (
+          <>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="body2">{currentTask}</Typography>
+            </Box>
+            <LinearProgressWithLabel value={progress} />
+          </>
+        ),
+
+        // progress: progress / 100,
+      });
+    };
+
+    if (cleanedLayout.missingFields.length > 0) {
+      toast.error("PDF generation failed: Missing required fields.", {
+        position: "bottom-right",
+      });
+    } else {
+      const zip = new JSZip(); // Initialize the zip file
+      // Step 1: Generate the IDML file and add it to the zip
+      updateProgress(0, "Generating IDML...");
+      await generateIDML(zip);
+      updateProgress(6.25, "IDML generated successfully");
+      // Step 2: Download and add images to the zip
+      updateProgress(0, "Downloading images...");
+      await downloadLayoutImages(layout, newsIds, zip, (progressIncrement) => {
+        updateProgress(progressIncrement, `Downloading image ${Math.floor(progress / 12.5)} of ${newsIds.length}`);
+      });
+      // Step 3: Generate and download the zip
+      updateProgress(0, "Zipping files...");
+
+      const qrCodeBlob = await getImage(layout.qrCodeImage);
+      zip.file(`${layout.qrCode}.jpg`, qrCodeBlob, { binary: true }); // Assuming PNG format
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      saveAs(zipBlob, "archive.zip");
+      updateProgress(6.25, "Zipping completed");
+      // Final step: Show success message once complete
+      toast.update(toastId, {
+        render: "Layout files downloaded successfully!",
+        type: "success",
+        autoClose: 5000,
+        icon: ({ theme, type }) => <img src={successGif} alt="Downloaded" width={24} height={24} style={{ marginRight: "8px" }} />,
+        progress: 100,
+      });
+    }
+  };
+  const downloadLayoutImages = async (layout, newsIds, zip, updateProgress) => {
+    try {
+      const downloadPromises = newsIds.map(async (newsId) => {
+        const item = layout[newsId];
+
+        if (item?.imageDesc) {
+          if (typeof item.imageDesc === "string" && item.imageDesc.startsWith("https://")) {
+            // Case 1: imageDesc is a URL
+            try {
+              const blob = await getImage(item.imageDesc);
+              zip.file(`${item.id}.jpg`, blob, { binary: true }); // Add the image to the zip
+              updateProgress(12.5); // Increment the progress
+            } catch (error) {
+              console.error(`Error downloading file for newsId ${newsId}:`, error);
+            }
+          } else if (item.imageDesc instanceof File) {
+            // Case 2: imageDesc is a File object
+            try {
+              const fileBlob = item.imageDesc;
+              zip.file(`${item.id}.jpg`, fileBlob, { binary: true }); // Add the file directly to the zip
+              updateProgress(12.5); // Increment the progress
+            } catch (error) {
+              console.error(`Error adding file for newsId ${newsId}:`, error);
+            }
+          } else {
+            console.warn(`Invalid imageDesc for newsId ${newsId}:`, item.imageDesc);
+          }
+        }
+      });
+
+      await Promise.all(downloadPromises);
+      console.log("All images added to the zip successfully.");
+    } catch (error) {
+      console.error("Error downloading layout images:", error);
+      throw error;
+    }
+  };
+  const getImage = async (imageDesc, zip, updateProgress) => {
+    const response = await fetch(imageDesc, { mode: "cors", cache: "no-cache" });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.statusText}`);
+    }
+    return await response.blob();
+  };
   return (
     <>
       <StyledAppBar position="static">

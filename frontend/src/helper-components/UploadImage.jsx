@@ -103,14 +103,6 @@ const ImageUploader = ({ id, height, width }) => {
 
         const croppedBlob = await getCroppedImageBlob(selectedFile, croppedAreaPixels, boxWidth, boxHeight);
         croppedFile = new File([croppedBlob], selectedFile.name, { type: selectedFile.type });
-        // setLayout((prev) => ({
-        //   ...prev,
-        //   [id]: {
-        //     ...prev[id],
-        //     //  id: newFileId,
-        //     imageDesc: croppedFile,
-        //   },
-        // }));
       }
 
       // Perform new upload or re-upload based on whether an image ID exists

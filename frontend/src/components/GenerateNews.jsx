@@ -26,9 +26,10 @@ const GenerateNews = () => {
     setLoading(true);
     getNews(content, maxLimit, editorMessage, async function (res) {
       setLoading(false);
-      if (!layout?.[layout?.selectedTextbox]?.body) {
-        const success = await generateHeadline(content, layout?.[selectedTextbox]?.headlineLimit, selectedTextbox, function (response) {});
-        setHeadline(response);
+      if (!layout?.[layout?.selectedTextbox]?.body && layout[layout?.selectedTextbox].headlineLimit > 0) {
+        const success = await generateHeadline(content, layout?.[selectedTextbox]?.headlineLimit, selectedTextbox, function (response) {
+          setHeadline(response);
+        });
       } else {
         setHeadline("");
       }

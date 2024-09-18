@@ -17,14 +17,14 @@ const Row1 = ({ id, width, height }) => {
       <>
         <Stack>
           <HoverText id={id} height={height} width={width} />
-          <EditableField
+          {/* <EditableField
             id={id}
             field="linkToPage"
             placeholder="See page 5"
             displayText={(temp) => {
               return temp;
             }}
-          />
+          /> */}
         </Stack>
       </>
       <ImageUploader

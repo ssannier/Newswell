@@ -7,6 +7,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import SaveIcon from "@mui/icons-material/Save";
 import axios from "axios";
 import { Context } from "../App";
+import getCroppedImg from "../utils/cropImage";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -37,19 +38,8 @@ const ImageUploader = ({ id, height, width }) => {
   const [isSaving, setIsSaving] = useState(false);
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
-    // setCroppedImage(croppedArea);
+    console.log();
   }, []);
-  // useEffect(() => {
-  //   // Check if there's an existing image in the layout
-  //   if (layout[id] && layout[id].imageDesc) {
-  //     setSelectedFile(layout[id].imageDesc);
-  //     setCroppedImage(layout[id].imageDesc);
-  //   } else {
-  //     // Reset state if no image in layout
-  //     setSelectedFile(null);
-  //     setCroppedImage(null);
-  //   }
-  // }, [layout, id]);
   useEffect(() => {
     if (layout[id]?.imageDesc) {
       if (layout[id].imageDesc instanceof File) {
@@ -94,16 +84,8 @@ const ImageUploader = ({ id, height, width }) => {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      let croppedFile = selectedFile;
-
-      // If cropping is needed, generate the cropped image
-      if (croppedAreaPixels) {
-        const boxWidth = parseFloat(width); // Convert box width to pixels
-        const boxHeight = parseFloat(height); // Convert box height to pixels
-
-        const croppedBlob = await getCroppedImageBlob(selectedFile, croppedAreaPixels, boxWidth, boxHeight);
-        croppedFile = new File([croppedBlob], selectedFile.name, { type: selectedFile.type });
-      }
+      const croppedBlob = await getCroppedImg(selectedFile, croppedAreaPixels, width, height); // Adjust rotation and flip as needed
+      const croppedFile = new File([croppedBlob], selectedFile.name, { type: selectedFile.type });
 
       // Perform new upload or re-upload based on whether an image ID exists
       if (!layout[id]?.id) {
@@ -194,46 +176,6 @@ const ImageUploader = ({ id, height, width }) => {
     }
   };
 
-  const getCroppedImageBlob = (imageFile, croppedAreaPixels, boxWidth, boxHeight) => {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
-      image.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        const { x, y, width, height } = croppedAreaPixels;
-
-        // Set the canvas size to the exact size of the crop area (no scaling)
-        canvas.width = width;
-        canvas.height = height;
-
-        // Draw the cropped area of the image directly onto the canvas
-        ctx.drawImage(
-          image,
-          x,
-          y,
-          width,
-          height, // Source: crop area in the original image
-          0,
-          0,
-          width,
-          height // Destination: exactly fill the canvas
-        );
-
-        // Convert the canvas to a Blob (same file type as the original image)
-        canvas.toBlob((blob) => {
-          if (blob) {
-            resolve(blob);
-          } else {
-            reject(new Error("Failed to convert canvas to blob"));
-          }
-        }, imageFile.type);
-      };
-
-      // Load the image from the file
-      image.src = URL.createObjectURL(imageFile);
-    });
-  };
   return (
     <>
       {layout[id]?.loading ? (

@@ -60,14 +60,14 @@ const Row4 = ({ id, width, height }) => {
 
           <HoverText id={id} width={width} height={height} />
 
-          <EditableField
+          {/* <EditableField
             id={id}
             field="linkToPage"
             placeholder="Example 2"
             displayText={(temp) => {
               return temp;
             }}
-          />
+          /> */}
         </Grid>
         <Grid item xs={6}>
           <ImageUploader id={id} width={312} height={214.08} placeholder="Add Image" />

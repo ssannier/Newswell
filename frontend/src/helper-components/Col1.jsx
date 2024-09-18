@@ -63,7 +63,7 @@ const Col1 = ({ id, width, height }) => {
         <Grid item>
           <HoverText id={id} width={width} height={height} />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <EditableField
             id={id}
             field="linkToPage"
@@ -72,7 +72,7 @@ const Col1 = ({ id, width, height }) => {
               return temp;
             }}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

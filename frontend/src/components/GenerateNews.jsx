@@ -128,8 +128,8 @@ const GenerateNews = () => {
         <Typography variant="body2" sx={{ mb: 2, textAlign: "center", color: "gray" }}>
           The changes made to the text in the above box will automatically reflect on its respective text box on the left-side newspaper template.
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", border: "1px solid #ccc", borderRadius: 50, p: "2px 4px", mb: 2 }}>
-          <TextField placeholder="Enter prompt here..." variant="outlined" value={editorMessage} onChange={(e) => setEditorMessage(e.target.value)} fullWidth disabled={!selectedTextbox || loading} sx={{ "& fieldset": { border: "none" } }} />
+        <Box sx={{ display: "flex", alignItems: "center", border: "1px solid #ccc", borderRadius: 3, p: "2px 4px", mb: 2 }}>
+          <TextField multiline maxRows={4} placeholder="Enter prompt here..." variant="outlined" value={editorMessage} onChange={(e) => setEditorMessage(e.target.value)} fullWidth disabled={!selectedTextbox || loading} sx={{ "& fieldset": { border: "none" } }} />
           <IconButton color="primary" onClick={handleGetNews} disabled={!selectedTextbox || loading}>
             <SendIcon />
           </IconButton>

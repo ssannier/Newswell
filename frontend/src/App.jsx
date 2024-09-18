@@ -77,7 +77,7 @@ export const blankLayout = {
   day: getDayOfWeek(),
   issueNumber: "",
   bannerSubtitle: "Your daily source for the latest and greatest in San Diego.",
-  qrCode: "794d57ee-4dbf-4321-a5ea-b2fbecb5675c",
+  qrCode: "24fe4c6a-6f24-4f5f-ba06-41e137cef34b",
   mediaAddress: "",
   row1_1: {
     id: "",
@@ -164,7 +164,7 @@ export const initializeLayout = (tLayout) => {
       },
     };
   }
-  layout = { ...layout, qrCode: tLayout?.qrCode || "794d57ee-4dbf-4321-a5ea-b2fbecb5675c", mediaAddress: tLayout?.mediaAddress || "", selectedTextbox: "" };
+  layout = { ...layout, qrCode: tLayout?.qrCode || "24fe4c6a-6f24-4f5f-ba06-41e137cef34b", mediaAddress: tLayout?.mediaAddress || "", selectedTextbox: "" };
   if (layout.qrCode) {
     fetchImageUrl(layout.qrCode, function (response) {
       layout = { ...layout, qrCodeImage: response };
@@ -173,7 +173,6 @@ export const initializeLayout = (tLayout) => {
   return layout;
 };
 export const cleanLayoutForAPI = (layout) => {
-  // debugger;
   const cleanedLayout = structuredClone(layout);
   let missingFields = [];
   delete cleanedLayout["qrCodeImage"];

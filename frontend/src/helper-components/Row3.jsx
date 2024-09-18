@@ -65,14 +65,14 @@ const Row3 = ({ id, width, height }) => {
 
           <HoverText id={id} width={width} height={height} />
 
-          <EditableField
+          {/* <EditableField
             id={id}
             field="linkToPage"
             placeholder="Example 2"
             displayText={(temp) => {
               return temp;
             }}
-          />
+          /> */}
         </Grid>
       </Grid>
     </>

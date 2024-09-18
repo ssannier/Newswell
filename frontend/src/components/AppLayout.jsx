@@ -81,7 +81,7 @@ const AppLayout = ({ layoutLoading }) => {
   // Function to generate IDML and download both images and IDML in a zip
   const generateIDML = async (zip) => {
     try {
-      const fetchresponse = await fetch("https://nrcetz8fb3.execute-api.us-east-1.amazonaws.com/dev/idml-gen");
+      const fetchresponse = await fetch(env.VITE_API_GET_IDML);
       if (fetchresponse.status === 200) {
         const data = await fetchresponse.json();
         const fileBlob = await downloadFileFromS3(data.s3_presigned_url);

@@ -15,6 +15,24 @@ The NEWSWELL project aims to develop a working website with Generative AI (GenAI
 ## Overview
 
 Newswell is built with React, utilizing a component-based architecture that allows for modular and reusable code. The application provides features such as layout management, article editing, image handling, and PDF generation.
+### Initialize Layout
+![Initialize Layout](./src/assets/Initialise%20Layout.png)
+
+### Consolidated Front-End Flow
+![Consolidated Front-End Flow](./src/assets/Newswell-%20consolidated%20front%20end%20flow.png)
+
+### Create PDF
+![Create PDF](./src/assets/Newswell-%20Create%20PDF.png)
+
+### Edit Article
+![Edit Article](./src/assets/Newswell-%20Edit%20Article.png)
+
+### Edit Image
+![Edit Image](./src/assets/Newswell-%20Edit%20Image.png)
+
+### Update Layout
+![Update Layout](./src/assets/Newswell-%20Update%20layout.png)
+
 
 ## Installation
 

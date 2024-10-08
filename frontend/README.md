@@ -15,24 +15,30 @@ The NEWSWELL project aims to develop a working website with Generative AI (GenAI
 ## Overview
 
 Newswell is built with React, utilizing a component-based architecture that allows for modular and reusable code. The application provides features such as layout management, article editing, image handling, and PDF generation.
+
 ### Initialize Layout
+
 ![Initialize Layout](./src/assets/Initialise%20Layout.png)
 
 ### Consolidated Front-End Flow
+
 ![Consolidated Front-End Flow](./src/assets/Newswell-%20consolidated%20front%20end%20flow.png)
 
 ### Create PDF
+
 ![Create PDF](./src/assets/Newswell-%20Create%20PDF.png)
 
 ### Edit Article
+
 ![Edit Article](./src/assets/Newswell-%20Edit%20Article.png)
 
 ### Edit Image
+
 ![Edit Image](./src/assets/Newswell-%20Edit%20Image.png)
 
 ### Update Layout
-![Update Layout](./src/assets/Newswell-%20Update%20layout.png)
 
+![Update Layout](./src/assets/Newswell-%20Update%20layout.png)
 
 ## Installation
 
@@ -45,38 +51,19 @@ To run this project locally, follow these steps:
     cd frontend
     ```
 
-2.  **Set up environment variables:**
-
-    > [!WARNING]  
-    > ⚠️ Warning: This is an important setup step needed before proceeding.
-
-         ```bash
-        VITE_API_ARTICLE_SUMMARY="<Add url here>"
-        VITE_API_ARTICLE_HEADLINE="<Add url here>"
-
-        VITE_API_REWRITE_IMAGE_UPLOAD="<Add url here>"
-        VITE_API_GET_PRESIGNED_URL_IMAGE_UPLOAD="<Add url here>"
-        VITE_API_GET_IMAGE_URL ="<Add url here>"
-
-        VITE_API_GET_JSON="<Add url here>"
-        VITE_API_JSON_UPLOAD="<Add url here>"
-
-        VITE_API_GET_IDML="<Add url here>"
-        ```
-
-3.  **Install dependencies**:
+2.  **Install dependencies**:
 
     ```bash
     npm install
     ```
 
-4.  **Start the development server**:
+3.  **Start the development server**:
 
     ```bash
     npm run dev
     ```
 
-5.  **Open your browser** and navigate to `http://localhost:3000` or `http://127.0.0.1:5173/` to see the application in action.
+4.  **Open your browser** and navigate to `http://localhost:3000` or `http://127.0.0.1:5173/` to see the application in action.
 
 ## Usage
 

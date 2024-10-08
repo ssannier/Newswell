@@ -16,29 +16,42 @@ The NEWSWELL project aims to develop a working website with Generative AI (GenAI
 
 Newswell is built with React, utilizing a component-based architecture that allows for modular and reusable code. The application provides features such as layout management, article editing, image handling, and PDF generation.
 
+### Consolidated Front-End Flow
+
+![Consolidated Front-End Flow](./src/assets/Newswell-%20consolidated%20front%20end%20flow.png)
+
+[Link to image for better clarity](https://drive.google.com/file/d/1pas_DBpZcXJ0s_frwl3vjFDkrtO9IxE8/view?usp=sharing)
+
 ### Initialize Layout
 
 ![Initialize Layout](./src/assets/Initialise%20Layout.png)
 
-### Consolidated Front-End Flow
+[Link to image for better clarity](https://drive.google.com/file/d/1UhwUrCZtWdlA9OgfivtWk1aJQ-BbTOlh/view?usp=drive_link)
 
-![Consolidated Front-End Flow](./src/assets/Newswell-%20consolidated%20front%20end%20flow.png)
+
+### Edit Article
+
+![Edit Article](./src/assets/Newswell-%20Edit%20Article.png)
+[Link to image for better clarity](https://drive.google.com/file/d/17hVvp4k9KZAKTawKyun3N8X1sL-wqbAy/view?usp=drive_link)
+
+### Update Layout
+
+![Update Layout](./src/assets/Newswell-%20Update%20layout.png)
+[Link to image for better clarity](https://drive.google.com/file/d/1IPHBl-rprrw7q3wq7_OwdsbIPb3E-yJU/view?usp=drive_link)
+
+
+### Edit Image
+
+![Edit Image](./src/assets/Newswell-%20Edit%20Image.png)
+[Link to image for better clarity](https://drive.google.com/file/d/1djnx8X6Y1rfaODcaKjyEFX4kvOH37TNU/view?usp=drive_link)
+
 
 ### Create PDF
 
 ![Create PDF](./src/assets/Newswell-%20Create%20PDF.png)
 
-### Edit Article
+[Link to image for better clarity](https://drive.google.com/file/d/1iWs4Kn0dGJeBriuE7tjdTYNO2JMAieJL/view?usp=drive_link)
 
-![Edit Article](./src/assets/Newswell-%20Edit%20Article.png)
-
-### Edit Image
-
-![Edit Image](./src/assets/Newswell-%20Edit%20Image.png)
-
-### Update Layout
-
-![Update Layout](./src/assets/Newswell-%20Update%20layout.png)
 
 ## Installation
 

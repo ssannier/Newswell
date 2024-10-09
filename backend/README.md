@@ -1,12 +1,12 @@
-# Newswell Project CDK
+# Newswell Project Backend CDK
 
 This project sets up a serverless infrastructure for the Newswell project using AWS CDK (Cloud Development Kit). The stack includes S3 for data storage, Lambda functions for processing and API Gateway for exposing APIs. It enables automatic deployment, secure data handling and API integrations.
 
 ## Prerequisites
 
 Before proceeding, ensure you have the following installed:
-- [AWS CLI](https://aws.amazon.com/cli/) configured with your AWS account credentials
-- [Node.js](https://nodejs.org/) (for CDK)
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [Node.js](https://nodejs.org/)
 - [Python 3.7+](https://www.python.org/downloads/)
 - [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/cli.html)
 
@@ -15,6 +15,8 @@ Before proceeding, ensure you have the following installed:
 - Lambda Functions: Execute serverless functions to handle different tasks.
 - API Gateway: Exposes endpoints for external communication.
 - IAM Roles: Provides necessary permissions for Lambda functions.
+
+![Architecture Diagram](./Architecture/architecture.png)
 
 ## Setup Instructions
 
@@ -138,11 +140,11 @@ cdk destroy
 ```
 
 ### Useful CDK Commands
-`cdk ls`: List all stacks in the app.
-`cdk synth`: Emit the synthesized CloudFormation template.
-`cdk deploy`: Deploy this stack to your AWS account/region.
-`cdk diff`: Compare the deployed stack with the current state.
-`cdk docs`: Open the CDK documentation.
+- `cdk ls`: List all stacks in the app.
+- `cdk synth`: Emit the synthesized CloudFormation template.
+- `cdk deploy`: Deploy this stack to your AWS account/region.
+- `cdk diff`: Compare the deployed stack with the current state.
+- `cdk docs`: Open the CDK documentation.
 
 ### Troubleshooting
 If you encounter any issues during the setup or deployment process, try the following steps:

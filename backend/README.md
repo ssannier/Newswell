@@ -1,4 +1,4 @@
-# Newswell
+# Newswell Project CDK
 
 This project sets up a serverless infrastructure for the Newswell project using AWS CDK (Cloud Development Kit). The stack includes S3 for data storage, Lambda functions for processing and API Gateway for exposing APIs. It enables automatic deployment, secure data handling and API integrations.
 
@@ -41,8 +41,9 @@ To create and activate a virtual environment (Mac/Linux):
 ```bash
 python -m venv .venv
 source .venv/bin/activate
+```
 
-For Windows:
+#### For Windows:
 
 ```bash
 python -m venv .venv
@@ -62,8 +63,6 @@ pip install -r requirements.txt
 You need to specify the S3 bucket name in the `cdk.json` file. Open the file and update the value for `bucket_name`:
 
 ```bash
-json
-Copy code
 {
   "app": "python3 app.py",
   "context": {

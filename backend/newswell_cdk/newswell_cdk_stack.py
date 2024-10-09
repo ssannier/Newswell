@@ -158,6 +158,31 @@ class NewswellCdkStack(Stack):
             **lambda_kwargs,
         )
 
+        idml_layer = _lambda.LayerVersion(
+            self, 'idmlLayer',
+            layer_version_name='idml_layer_1',
+            code=_lambda.Code.from_asset('lambda_layers/idml_layer'),  # Path to the layer code
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  # Make sure it's compatible with your function runtime
+            description="A lambda layer with IDML dependencies"
+        )
+
+        lxml_layer = _lambda.LayerVersion(
+            self, 'lxmlLayer',
+            layer_version_name='lxml_layer_1',
+            code=_lambda.Code.from_asset('lambda_layers/lxml_layer'),  # Path to the layer code
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  # Make sure it's compatible with your function runtime
+            description="A Lambda layer with lxml dependencies"
+        )
+
+        lambda_function = _lambda.Function(
+            self, 'TranslationFunctionv2', 
+            function_name='TranslationFunction_stack_test',
+            runtime=_lambda.Runtime.PYTHON_3_12,
+            handler='translate.lambda_handler',  # Reference the handler inside 'app.py' in the function folder
+            code=_lambda.Code.from_asset('lambda/function'),  # Path to the Lambda function folder
+            layers=[idml_layer, lxml_layer],  # Add the Lambda layer here
+        )
+
         # API Gateway
         api = apigw.RestApi(
             self,

@@ -1,6 +1,7 @@
 import json
 import boto3
 import uuid
+import os
 
 # Initialize the S3 client
 s3_client = boto3.client('s3')
@@ -10,7 +11,8 @@ def lambda_handler(event, context):
     file_id = str(uuid.uuid4())
     
     # Define the S3 bucket name
-    bucket_name = 'samplenewswell1'
+    BUCKET_NAME = os.getenv('BUCKET_NAME')
+    bucket_name = BUCKET_NAME
     
     # Define the file extension and complete file name (file_id + .extension)
     file_extension = 'jpg'  # Assuming the user uploads a .jpg file, you can dynamically determine this
@@ -30,16 +32,16 @@ def lambda_handler(event, context):
         # Return the presigned URL and the file ID to the client
         return {
             'statusCode': 200,
-            'body': {
+            'body': json.dumps({  # Ensure body is a JSON string
                 'url': presigned_url,
                 'file_id': file_id,  
                 'file_name': file_name
-            },
+            }),
             'headers': {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',  # Allow requests from any origin
                     'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST'  # Allowed methods
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'  # Allowed methods
                 }
         }
     
@@ -51,6 +53,6 @@ def lambda_handler(event, context):
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',  # Allow requests from any origin
                     'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST'  # Allowed methods
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'  # Allowed methods
                 }
         }

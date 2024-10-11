@@ -1,19 +1,19 @@
 import boto3
 import json
+import os
 
 s3 = boto3.client('s3')
-BUCKET_NAME = 'samplenewswell1'
+BUCKET_NAME = os.getenv('BUCKET_NAME')
 
 def lambda_handler(event, context):
     try:
-        # Extract the file ID from the request
-        # body = event['body']
+        if 'body' in event:
+            event_body = json.loads(event['body'])  # Parse the body string
+        else:
+            event_body = event  # If directly from Lambda test, it will not be stringified
+        
         # Access the 'id' from the body
-        file_id = event['id']
-        # return {
-        #     'statusCode': 200,
-        #     'body': file_id
-        # }
+        file_id = event_body['id']
         file_name = file_id + ".jpg"
         
 
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': presigned_url,
+            'body': json.dumps(presigned_url),
             'headers': {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',  # Allow requests from any origin

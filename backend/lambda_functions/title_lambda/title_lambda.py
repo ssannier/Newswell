@@ -23,7 +23,6 @@ def invoke_bedrock_model(prompt, max_length):
         response = bedrock_client.invoke_model(modelId=model_id, body=request)
         model_response = json.loads(response["body"].read())
         response_text = model_response["content"][0]["text"]
-        print(response_text)
         return response_text
         
     except (ClientError, Exception) as e:
@@ -31,20 +30,23 @@ def invoke_bedrock_model(prompt, max_length):
         raise e
 
 def construct_prompt(content, max_length, editor_message=None):
-    prompt = f"Generate a single, catchy, and relevant title for the following content,in less than {max_length} characters and make sure the output is not exceeding the character count. Follow these rules: 1) The title must include key points,catchy and relevant title  2) It must be less than {max_length} characters, (including spaces and punctuation), 3) Avoid truncating words; rephrase to fit the character count less than the {max_length}, 4) Ensure proper grammar and punctuation, 5) Use AP style throughout, 6) No headings or extra information beyond the title. The output must be concise, precise, and less than {max_length} characters Output format: In a plain string format."
+    prompt = f"Generate a single, catchy, and relevant title for the following content, in less than {max_length} characters. Follow these rules: 1) Include key points, 2) Less than {max_length} characters (including spaces), 3) No truncation; rephrase if necessary, 4) Ensure proper grammar and punctuation, 5) Use AP style throughout. Output must be concise and precise."
     if editor_message:
         prompt += f" Follow the editor's message: {editor_message}"
     prompt += f"\n\nContent: {content}"
     return prompt
 
 def lambda_handler(event, context):
+    response_text = None  # Initialize response_text
     try:
-        print(event)
-        body = json.dumps(event)
-        body = json.loads(body)
-        content = body['content']
-        max_length = body['length']
-        editor_message = body.get('editor_message')
+        if 'body' in event:
+            event_body = json.loads(event['body'])  # Parse the body string
+        else:
+            event_body = event  # If directly from Lambda test, it will not be stringified
+        
+        content = event_body.get('content')
+        max_length = event_body.get('length')
+        editor_message = event_body.get('editor_message')
         
         if not content:
             return {
@@ -52,9 +54,9 @@ def lambda_handler(event, context):
                 'body': json.dumps({'error': 'Content is required'}),
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',  # Allow requests from any origin
+                    'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST'  # Allowed methods
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST'
                 }
             }
         
@@ -63,23 +65,23 @@ def lambda_handler(event, context):
         
         return {
             'statusCode': 200,
-            'body': response_text,
+            'body': json.dumps({'response': response_text}),
             'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',  # Allow requests from any origin
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST'  # Allowed methods
-                }
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST'
+            }
         }
         
     except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps(response_text),
+            'body': json.dumps({'error': str(e)}),  # Use the exception message
             'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',  # Allow requests from any origin
-                    'Access-Control-Allow-Headers': 'Content-Type',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST'  # Allowed methods
-                }
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST'
+            }
         }

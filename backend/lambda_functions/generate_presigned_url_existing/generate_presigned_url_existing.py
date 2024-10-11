@@ -1,5 +1,6 @@
 import json
 import boto3
+import os
 
 # Initialize the S3 client
 s3_client = boto3.client('s3')
@@ -21,7 +22,8 @@ def lambda_handler(event, context):
         }
     
     # Define the S3 bucket name
-    bucket_name = 'samplenewswell1'
+    BUCKET_NAME = os.getenv('BUCKET_NAME')
+    bucket_name = BUCKET_NAME
     file_extension = 'jpg'  # Assuming the user uploads a .jpg file
     file_name = f"{id}.{file_extension}"
     

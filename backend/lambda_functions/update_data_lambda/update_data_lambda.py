@@ -1,24 +1,24 @@
 import boto3
 import json
+import os
 
 s3 = boto3.client('s3')
-BUCKET_NAME = 'samplenewswell1'
-FILE_FOLDER = 'file/'
+BUCKET_NAME = os.getenv('BUCKET_NAME')
+FILE_FOLDER = 'data/'
 FILE_NAME = 'data.json'
 
 def lambda_handler(event, context):
     try:
         file_key = FILE_FOLDER + FILE_NAME
         
-        # Check if the body is present
-        # if 'body' not in event:
-        #     return {
-        #         'statusCode': 400,
-        #         'body': json.dumps({'error': 'Request body is missing'})
-        #     }
         
         # Parse the JSON data from the request body
-        json_data = event
+        if 'body' in event and event['body']:
+            # If there's a 'body', it's a string, so we parse it as JSON
+            json_data = json.loads(event['body'])
+        else:
+            # If no 'body' field, assume the event itself is the JSON data
+            json_data = event
 
         # Save the JSON data to S3
         s3.put_object(

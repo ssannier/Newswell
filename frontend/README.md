@@ -1,4 +1,4 @@
-# Newswell Frontend
+# 📰 Newswell Frontend 🎨 
 
 The NEWSWELL project aims to develop a working website with Generative AI (GenAI) incorporated to format and generate content within a single front-page template for a newspaper, intended for both digital and physical publication. The project also enables the conversion of the website into an editable InDesign file, which is saved within the user’s local files.
 
@@ -117,3 +117,5 @@ The application allows users to create and manage newspaper layouts, edit articl
 2. **Error Handling and Feedback**: Robust error handling with user feedback via toast notifications.
 3. **Performance Optimization**: Memoization of components to prevent unnecessary re-renders.
 4. **Consistent Styling with Material-UI**: Used Material-UI for a cohesive design language throughout the application.
+
+### With these instructions, your Newswell backend should be up and running in no time! 🎉🚀

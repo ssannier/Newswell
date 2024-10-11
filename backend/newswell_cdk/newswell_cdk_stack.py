@@ -155,14 +155,14 @@ class NewswellCdkStack(Stack):
             "GetPresignedUrlLambda",
             code=_lambda.Code.from_asset("lambda_functions/get_presigned_url"),
             handler="get_presigned_url.lambda_handler",
-            **lambda_kwargs,
+            **lambda_kwargs
         )
 
         idml_layer = _lambda.LayerVersion(
             self, 'idmlLayer',
             layer_version_name='idml_layer_1',
             code=_lambda.Code.from_asset('lambda_layers/idml_layer'),  # Path to the layer code
-            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  # Make sure it's compatible with your function runtime
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  
             description="A lambda layer with IDML dependencies"
         )
 
@@ -170,17 +170,16 @@ class NewswellCdkStack(Stack):
             self, 'lxmlLayer',
             layer_version_name='lxml_layer_1',
             code=_lambda.Code.from_asset('lambda_layers/lxml_layer'),  # Path to the layer code
-            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  # Make sure it's compatible with your function runtime
+            compatible_runtimes=[_lambda.Runtime.PYTHON_3_12],  
             description="A Lambda layer with lxml dependencies"
         )
 
-        lambda_function = _lambda.Function(
+        translation_layer = _lambda.Function(
             self, 'TranslationFunctionv2', 
-            function_name='TranslationFunction_stack_test',
-            runtime=_lambda.Runtime.PYTHON_3_12,
-            handler='translate.lambda_handler',  # Reference the handler inside 'app.py' in the function folder
-            code=_lambda.Code.from_asset('lambda/function'),  # Path to the Lambda function folder
-            layers=[idml_layer, lxml_layer],  # Add the Lambda layer here
+            code=_lambda.Code.from_asset('lambda_functions/translationLayer'), 
+            handler='translate.lambda_handler',
+            layers=[idml_layer, lxml_layer],  # Lambda layer here
+            **lambda_kwargs
         )
 
         # API Gateway
@@ -243,7 +242,12 @@ class NewswellCdkStack(Stack):
         get_presigned_url_integration = apigw.LambdaIntegration(
             get_presigned_url_lambda
         )
-        get_presigned_url_resource.add_method("GET", get_presigned_url_integration)
+        get_presigned_url_resource.add_method("POST", get_presigned_url_integration)
+
+        # /
+        idml_gen_resource = api.root.add_resource("idml_gen")
+        idml_integration = apigw.LambdaIntegration(translation_layer)
+        idml_gen_resource.add_method("GET", idml_integration)
 
         # Outputs
         self.api_endpoint = api.url

@@ -38,18 +38,17 @@ def construct_prompt(content, max_length, editor_message=None):
     return prompt
 
 def lambda_handler(event, context):
+    response_text = None  # Initialize response_text
     try:
         print(event)
-        body = json.dumps(event)
-        body = json.loads(body)
-        content = body['content']
-        # max_length = body['length']
-        max_length = int(body['length'])-10
-        # if(body['editor_message']):
-        #     editor_message = body['editor_message']
-        # else:
-        #     editor_message = None
-        editor_message = body.get('editor_message')
+        if 'body' in event:
+            event_body = json.loads(event['body'])  # Parse the body string
+        else:
+            event_body = event  # If directly from Lambda test, it will not be stringified
+        
+        content = event_body.get('content')
+        max_length = event_body.get('length')
+        editor_message = event_body.get('editor_message')
         
         if not content:
             return {

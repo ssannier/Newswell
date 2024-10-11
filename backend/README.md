@@ -185,6 +185,6 @@ pip install -r requirements.txt  # Reinstall dependencies
 # Helpful Links:
 - [AWS CDK Documentation 🌐](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
 - [AWS Lambda Documentation 🛠️](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-- [AWS S3 Documentation](https://docs.aws.amazon.com/s3/)
+- [AWS S3 Documentation 📦](https://docs.aws.amazon.com/s3/)
 - [AWS API Gateway Documentation 🌐](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
 

@@ -12,8 +12,8 @@ Welcome to the Newswell Project! 🎉 This project is designed to create a fully
 
 The Newswell Project consists of two main parts:
 
-Backend: Built using AWS CDK, it manages the serverless functions, API endpoints, and storage for handling data, summaries, titles, and images.
-Frontend: Developed with React, this part focuses on the user interface, layout management, article editing, image uploads, and PDF creation.
+- Backend: Built using AWS CDK, it manages the serverless functions, API endpoints, and storage for handling data, summaries, titles, and images.
+- Frontend: Developed with React, this part focuses on the user interface, layout management, article editing, image uploads, and PDF creation.
 
 ## ✨ Key Features:
 
@@ -28,7 +28,7 @@ Frontend: Developed with React, this part focuses on the user interface, layout 
 
 The backend is built with AWS CDK and contains all the logic for managing data and processing requests. Follow these steps to deploy the backend:
 
-Clone the repository:
+#### Clone the repository:
 
 ```bash
 git clone https://github.com/ASUCICREPO/Newswell.git
@@ -39,7 +39,7 @@ Install AWS CDK and other dependencies as outlined in the [backend README](./bac
 
 Update the bucket name in the cdk.json file to ensure uniqueness.
 
-Deploy the stack by following the instructions in the backend README:
+#### Deploy the stack by following the instructions in the backend README:
 
 ```bash
 cdk deploy
@@ -51,19 +51,19 @@ This will create the necessary resources like S3 buckets, Lambda functions, API 
 
 Once the backend is successfully deployed, it's time to set up the frontend!
 
-Navigate to the frontend folder:
+#### Navigate to the frontend folder:
 
 ```bash
 cd ../frontend
 ```
 
-Install the required dependencies by running:
+#### Install the required dependencies by running:
 
 
 ```bash
 npm install
 ```
-Start the development server:
+#### Start the development server:
 
 ```bash
 npm run dev

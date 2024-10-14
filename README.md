@@ -54,7 +54,7 @@ Once the backend is successfully deployed, it's time to set up the frontend!
 #### Navigate to the frontend folder:
 
 ```bash
-cd ../frontend
+cd frontend
 ```
 
 #### Install the required dependencies by running:

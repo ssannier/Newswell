@@ -32,10 +32,6 @@ const Row2 = ({ id, width, height }) => {
     <>
       <Grid item xs={4} container spacing={2} direction="row" alignContent="flex-start">
         <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
-          {/* <Typography variant="h5" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
-            {layout?.[id].title || "Click to generate headline"}
-          </Typography> */}
-
           <EditableField
             id={id}
             field="title"
@@ -45,10 +41,7 @@ const Row2 = ({ id, width, height }) => {
             displayText={(temp) => {
               return temp;
             }}
-            sx={{ fontWeight: "600", fontFamily: "Playfair Display",
-              fontSize: "34pt",
-              lineHeight: "38pt",
-              }}
+            sx={{ fontWeight: "600", fontFamily: "Playfair Display", fontSize: "34pt", lineHeight: "38pt" }}
           />
           <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
             {isLoading ? <CircularProgress size={24} /> : <AutorenewIcon />}
@@ -62,15 +55,9 @@ const Row2 = ({ id, width, height }) => {
             displayText={(temp) => {
               return temp;
             }}
-            sx={{ fontWeight: "400", fontFamily: "Merriweather",
-              fontSize: "10pt",
-              lineHeight: "14pt",
-              }}
+            sx={{ fontWeight: "400", fontFamily: "Merriweather", fontSize: "10pt", lineHeight: "14pt" }}
           />
-          <HoverText id={id} width={width} height={height} fontFamily="Merriweather"
-          fontWeight="400"
-          fontSize="10pt"
-          lineHeight="14pt" />
+          <HoverText id={id} width={width} height={height} fontFamily="Merriweather" fontWeight="400" fontSize="10pt" lineHeight="14pt" />
           <EditableField
             id={id}
             field="linkToPage"
@@ -78,11 +65,7 @@ const Row2 = ({ id, width, height }) => {
             displayText={(temp) => {
               return temp;
             }}
-            sx={{ fontWeight: "700", fontFamily: "Merriweather",
-              fontSize: "10pt",
-              lineHeight: "14pt",
-              textTransform: "uppercase"
-              }}
+            sx={{ fontWeight: "700", fontFamily: "Merriweather", fontSize: "10pt", lineHeight: "14pt", textTransform: "uppercase" }}
           />
         </Grid>
       </Grid>
@@ -103,6 +86,21 @@ const Row2 = ({ id, width, height }) => {
             return temp;
           }}
           sx={{ fontWeight: 400, fontSize: 12, margin: "8px 0px 8px 17px" }}
+        />
+        <EditableField
+          field="credits"
+          placeholder=""
+          displayText={(temp) => {
+            return temp;
+          }}
+          // sx={{ fontSize: "16px", textAlign: "center", fontWeight: 500 }}
+          sx={{
+            fontFamily: "'Playfair Display'",
+            fontweight: 400,
+            textAlign: "end",
+            fontSize: 12,
+          }}
+          editCanvas={true}
         />
       </Grid>
     </>

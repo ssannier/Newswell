@@ -10,6 +10,7 @@ import Row3 from "../helper-components/Row3";
 import Col1 from "../helper-components/Col1";
 import EditableField from "../helper-components/EditableField";
 import QRUpload from "../helper-components/QRUpload";
+import Masthead from "../helper-components/MastHead";
 
 const env = import.meta.env;
 
@@ -48,7 +49,7 @@ const Header = () => {
                   sx={{ textAlign: "left", color: "black", fontSize: "0.875rem", fontWeight: 400 }}
                   editCanvas={true}
                 />
-                <Typography sx={{ fontFamily: 'Merriweather, serif', fontSize: '12pt', lineHeight: '14.4pt' }}>
+                <Typography sx={{ fontFamily: "Merriweather, serif", fontSize: "12pt", lineHeight: "14.4pt" }}>
                   {`${layout.day}` || getDayOfWeek()}
                   <br />
                   {`${layout.date}` || getFormattedDate()}
@@ -72,9 +73,9 @@ const Header = () => {
             </Grid>
             <div style={{ border: "0.5px solid black" }} />
             <Grid item xs={6}>
-              <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: "bold", color: "red" }}>
-                {layout.banner}
-              </Typography>
+              <Box sx={{ height: "fit-content", width: "100%" }}>
+                <Masthead />
+              </Box>
 
               <EditableField
                 field="bannerSubtitle"
@@ -87,31 +88,29 @@ const Header = () => {
                   fontFamily: "'Playfair Display'",
                   fontweight: 400,
                   textAlign: "center",
-                  fontSize: 12
+                  fontSize: 12,
                 }}
                 editCanvas={true}
               />
             </Grid>
             <div style={{ border: "0.5px solid black" }} />
             <Grid item xs={2.9}>
-              <Stack flexDirection="row" sx={{ ml: 4,  }}>
+              <Stack flexDirection="row" sx={{ ml: 4 }}>
                 <Box sx={{ height: "100px", width: "100px", backgroundColor: "#ccc" }}>
                   <QRUpload />
                 </Box>
-                <Typography sx={{ fontFamily: 'Merriweather, serif', fontSize: '10pt', lineHeight: '12pt', textAlign: "left", alignSelf: "center", width: "30%", ml: 2 }}>
-                  QR & Social bugs-ForPosition Only
-                </Typography>
+                <Typography sx={{ fontFamily: "Merriweather, serif", fontSize: "10pt", lineHeight: "12pt", textAlign: "left", alignSelf: "center", width: "30%", ml: 2 }}>QR & Social bugs-ForPosition Only</Typography>
               </Stack>
               <Typography variant="body1" sx={{ textAlign: "center", mt: 1 }}>
-              <EditableField
-                field="mediaAddress"
-                placeholder="@media.address.com"
-                displayText={(temp) => {
-                  return temp;
-                }}
-                sx={{ fontFamily: 'Merriweather, serif', fontSize: '11pt', textAlign: "left", fontWeight: 400, ml: 4 }}
-                editCanvas={true}
-              />
+                <EditableField
+                  field="mediaAddress"
+                  placeholder="@media.address.com"
+                  displayText={(temp) => {
+                    return temp;
+                  }}
+                  sx={{ fontFamily: "Merriweather, serif", fontSize: "11pt", textAlign: "left", fontWeight: 400, ml: 4 }}
+                  editCanvas={true}
+                />
               </Typography>
             </Grid>
           </Grid>
@@ -125,7 +124,7 @@ const MainContent = () => (
   <Box sx={{ padding: 2 }}>
     <Grid container spacing={2}>
       <Grid item xs={4} sx={{ mb: 2 }}>
-        <Row1 id={"row1_1"} width="9rem" height="9rem"/>
+        <Row1 id={"row1_1"} width="9rem" height="9rem" />
       </Grid>
       <Grid item xs={4} sx={{ mb: 2 }}>
         <Row1 id={"row1_2"} width="9rem" height="9rem" />

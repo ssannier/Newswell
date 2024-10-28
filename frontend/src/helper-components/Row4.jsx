@@ -34,7 +34,8 @@ const Row4 = ({ id, width, height }) => {
         <Grid item xs={12}>
           <Paper elevation={0} sx={{ padding: "1rem 0" }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="h6"
+              <Typography
+                variant="h6"
                 sx={{
                   fontWeight: "400",
                   width: "fit-content",
@@ -52,7 +53,7 @@ const Row4 = ({ id, width, height }) => {
         </Grid>
         <Grid item xs={6}>
           <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6" sx={{ fontWeight: "600", fontFamily:"Playfair Display", fontSize:"20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ fontWeight: "600", fontFamily: "Playfair Display", fontSize: "20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
               {layout?.[id].title || "Click to generate headline"}
             </Typography>
             <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
@@ -80,8 +81,23 @@ const Row4 = ({ id, width, height }) => {
             }}
           /> */}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} alignContent="flex-start" container justifyContent="flex-end">
           <ImageUploader id={id} width={312} height={214.08} placeholder="Add Image" />
+          <EditableField
+            field="credits"
+            placeholder=""
+            displayText={(temp) => {
+              return temp;
+            }}
+            // sx={{ fontSize: "16px", textAlign: "center", fontWeight: 500 }}
+            sx={{
+              fontFamily: "'Playfair Display'",
+              fontweight: 400,
+              textAlign: "end",
+              fontSize: 12,
+            }}
+            editCanvas={true}
+          />
         </Grid>
       </Grid>
     </>

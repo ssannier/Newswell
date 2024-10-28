@@ -31,30 +31,45 @@ const Col1 = ({ id, width, height }) => {
       <Grid container item xs={12} direction="column" spacing={2}>
         <Grid item>
           <Paper elevation={0} sx={{ padding: "1rem 0" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography
-              sx={{
-                fontWeight: "400",
-                width: "fit-content",
-                fontFamily: "Bevan",
-                fontSize: "12pt",
-                color: "rgb(14,97,151)",
-                marginRight: "0.5rem", // Adds some space between the text and the divider
-              }}
-            >
-              CULTURE
-            </Typography>
-            <Divider sx={{ flexGrow: 1 }} />
-          </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography
+                sx={{
+                  fontWeight: "400",
+                  width: "fit-content",
+                  fontFamily: "Bevan",
+                  fontSize: "12pt",
+                  color: "rgb(14,97,151)",
+                  marginRight: "0.5rem", // Adds some space between the text and the divider
+                }}
+              >
+                CULTURE
+              </Typography>
+              <Divider sx={{ flexGrow: 1 }} />
+            </Box>
           </Paper>
-          
         </Grid>
-        <Grid item>
+        <Grid item container justifyContent="flex-end">
           <ImageUploader id={id} width={312} height={216} placeholder="Add Image" />
+          <EditableField
+            field="credits"
+            placeholder=""
+            displayText={(temp) => {
+              return temp;
+            }}
+            // sx={{ fontSize: "16px", textAlign: "center", fontWeight: 500 }}
+            sx={{
+              fontFamily: "'Playfair Display'",
+              fontweight: 400,
+              textAlign: "center",
+              fontSize: 12,
+            }}
+            editCanvas={true}
+          />
         </Grid>
+
         <Grid item container direction="row">
           <Grid item xs={10}>
-            <Typography variant="h6" sx={{ fontWeight: "600",fontFamily:"Playfair Display", fontSize:"20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ fontWeight: "600", fontFamily: "Playfair Display", fontSize: "20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
               {layout?.[id].title || "Click to generate headline"}
             </Typography>
           </Grid>

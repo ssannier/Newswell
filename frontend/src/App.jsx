@@ -9,18 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import useHistoryState from "./utils/useHistoryState";
 
-import {Amplify} from 'aws-amplify';
-import LoginPage from './components/LoginPage';
+import { Amplify } from "aws-amplify";
+import LoginPage from "./components/LoginPage";
 import { signOut } from "aws-amplify/auth";
-
 
 export const Context = React.createContext();
 const env = import.meta.env;
 
-
-
 const App = () => {
-
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem("isLoggedIn") === "true";
   });
@@ -51,7 +47,6 @@ const App = () => {
       },
     },
   });
-
 
   //const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -115,11 +110,10 @@ const App = () => {
     fetchLayout();
   }, []);
 
-
-  //Set Login Page
-  if (!isLoggedIn) {
-    return <LoginPage onLogin={handleLogin} />;
-  }
+  // Set Login Page
+  // if (!isLoggedIn) {
+  //   return <LoginPage onLogin={handleLogin} />;
+  // }
 
   return (
     <Context.Provider value={[layout, setLayout, undo, redo]}>
@@ -143,6 +137,7 @@ export const blankLayout = {
   issueNumber: "",
   bannerSubtitle: "Your daily source for the latest and greatest in San Diego.",
   qrCode: "24fe4c6a-6f24-4f5f-ba06-41e137cef34b",
+  mastheadId: "a49af104-51b4-4ed8-bbe2-7dc9bd430abb",
   mediaAddress: "",
   row1_1: {
     id: "",
@@ -153,6 +148,7 @@ export const blankLayout = {
     author: "",
     headlineLimit: 0,
     imageSubtitle: "",
+    credits: "",
   },
   row1_2: {
     id: "",
@@ -163,6 +159,7 @@ export const blankLayout = {
     author: "",
     imageSubtitle: "",
     headlineLimit: 0,
+    credits: "",
   },
   row1_3: {
     id: "",
@@ -173,6 +170,7 @@ export const blankLayout = {
     author: "",
     imageSubtitle: "",
     headlineLimit: 0,
+    credits: "",
   },
   row2: {
     id: "",
@@ -183,6 +181,7 @@ export const blankLayout = {
     author: "",
     imageSubtitle: "",
     headlineLimit: 34,
+    credits: "",
   },
   row3: {
     id: "",
@@ -193,6 +192,7 @@ export const blankLayout = {
     author: "",
     headlineLimit: 57,
     imageSubtitle: "",
+    credits: "",
   },
   row4: {
     id: "",
@@ -203,6 +203,7 @@ export const blankLayout = {
     author: "",
     imageSubtitle: "",
     headlineLimit: 57,
+    credits: "",
   },
   col1: {
     id: "",
@@ -213,6 +214,7 @@ export const blankLayout = {
     headlineLimit: 57,
     imageSubtitle: "",
     author: "",
+    credits: "",
   },
 };
 
@@ -226,13 +228,19 @@ export const initializeLayout = (tLayout) => {
         imageDesc: "",
         id: tLayout ? layout[newsId].id : "",
         loading: false,
+        credits: "",
       },
     };
   }
-  layout = { ...layout, qrCode: tLayout?.qrCode || "24fe4c6a-6f24-4f5f-ba06-41e137cef34b", mediaAddress: tLayout?.mediaAddress || "", selectedTextbox: "" };
+  layout = { ...layout, qrCode: tLayout?.qrCode || "24fe4c6a-6f24-4f5f-ba06-41e137cef34b", mastheadId: tLayout?.mastheadId || "a49af104-51b4-4ed8-bbe2-7dc9bd430abb", mediaAddress: tLayout?.mediaAddress || "", selectedTextbox: "" };
   if (layout.qrCode) {
     fetchImageUrl(layout.qrCode, function (response) {
       layout = { ...layout, qrCodeImage: response };
+    });
+  }
+  if (layout.mastheadId) {
+    fetchImageUrl(layout.mastheadId, function (response) {
+      layout = { ...layout, mastheadId: response };
     });
   }
   return layout;

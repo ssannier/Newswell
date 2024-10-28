@@ -765,7 +765,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "e41bec72e7392a2d25efa30f024a669638ce0262f04ca02d5229576cc431ef4e.zip"
+                      "s3Key": "d46242231a87a61ccc1461bc5eb81e5f785e92be4dc17e5fa695a0d623ebb25e.zip"
                     },
                     "environment": {
                       "variables": {
@@ -839,7 +839,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "1f5901a9cf994f7c7f1227f1e73599e9a3acefb6388f1f5f7d157294d76f2a44.zip"
+                      "s3Key": "27845e0146899ca7833cdade79b911375a068501a246484a724bbab2980eefd1.zip"
                     },
                     "environment": {
                       "variables": {
@@ -913,7 +913,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "cfd8aff32185502812189ecf366273bf6b4efc5d51bcef41449e700d8a62b7e5.zip"
+                      "s3Key": "0fe89d403560bec730ec98e57d8d9daca0142f59c329123609d3476be194e9c0.zip"
                     },
                     "environment": {
                       "variables": {
@@ -987,7 +987,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "6a224a038e55cc040f02fe31a98b313723f34c445dff35530e317c76cdaf120a.zip"
+                      "s3Key": "e92689c85de85f41ad63b25a5a8173a9b67840fce6e3e8acde3f913ec45bb885.zip"
                     },
                     "environment": {
                       "variables": {
@@ -1061,7 +1061,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "5f226b49ff632fabb30bf25804546b814a257df044764d519956e1f0b9222671.zip"
+                      "s3Key": "8a47d9f5a07e728c958d1d8db676e3c59c2c260c59c975922ebbf5da88e4a296.zip"
                     },
                     "environment": {
                       "variables": {
@@ -1135,7 +1135,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "6df855ec9cb06af27f7bf8877f1d9d121616318193ef81dc19b17029ea802639.zip"
+                      "s3Key": "ccc755e452bd0a8c318a1e9591839c8dc65e8587fd6b653f280be73d393d23da.zip"
                     },
                     "environment": {
                       "variables": {
@@ -1209,7 +1209,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "5bda5502cafa6b5e977fbdf1923c003196b06e12d0615397419888597926c4d5.zip"
+                      "s3Key": "24e891969219e33d5d65e36f60cbc5e0958a6bce72175b29d1073f12fb623139.zip"
                     },
                     "environment": {
                       "variables": {
@@ -1367,63 +1367,6 @@
             "id": "TranslationFunctionv2",
             "path": "NewswellCdkStack/TranslationFunctionv2",
             "children": {
-              "ServiceRole": {
-                "id": "ServiceRole",
-                "path": "NewswellCdkStack/TranslationFunctionv2/ServiceRole",
-                "children": {
-                  "ImportServiceRole": {
-                    "id": "ImportServiceRole",
-                    "path": "NewswellCdkStack/TranslationFunctionv2/ServiceRole/ImportServiceRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.161.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "NewswellCdkStack/TranslationFunctionv2/ServiceRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "managedPolicyArns": [
-                          {
-                            "Fn::Join": [
-                              "",
-                              [
-                                "arn:",
-                                {
-                                  "Ref": "AWS::Partition"
-                                },
-                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                              ]
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.161.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.161.0"
-                }
-              },
               "Code": {
                 "id": "Code",
                 "path": "NewswellCdkStack/TranslationFunctionv2/Code",
@@ -1460,9 +1403,18 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "84479643265cc67946491568ea7b8934d109a35e11da40a828b01deca680bf2c.zip"
+                      "s3Key": "2421e1a81e9a4cc19912f327969f54a7e79948e10e22fa69fff82e2c32e1b7df.zip"
                     },
-                    "functionName": "TranslationFunction_stack",
+                    "environment": {
+                      "variables": {
+                        "BUCKET_NAME": {
+                          "Ref": "DataBucketE3889A50"
+                        },
+                        "REGION_NAME": {
+                          "Ref": "AWS::Region"
+                        }
+                      }
+                    },
                     "handler": "translate.lambda_handler",
                     "layers": [
                       {
@@ -1474,11 +1426,12 @@
                     ],
                     "role": {
                       "Fn::GetAtt": [
-                        "TranslationFunctionv2ServiceRole01557E49",
+                        "LambdaRole3A44B857",
                         "Arn"
                       ]
                     },
-                    "runtime": "python3.12"
+                    "runtime": "python3.12",
+                    "timeout": 600
                   }
                 },
                 "constructInfo": {
@@ -1549,7 +1502,7 @@
                       "aws:cdk:cloudformation:type": "AWS::ApiGateway::Stage",
                       "aws:cdk:cloudformation:props": {
                         "deploymentId": {
-                          "Ref": "NewswellApiDeploymentB97F0D21ebae33e5b49a23a0cdefa67df19a9e9b"
+                          "Ref": "NewswellApiDeploymentB97F0D212e325d05728b46a6074879cbbadf0292"
                         },
                         "methodSettings": [
                           {
@@ -2725,13 +2678,13 @@
                           "version": "2.161.0"
                         }
                       },
-                      "GET": {
-                        "id": "GET",
-                        "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET",
+                      "POST": {
+                        "id": "POST",
+                        "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST",
                         "children": {
-                          "ApiPermission.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url": {
-                            "id": "ApiPermission.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url",
-                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url",
+                          "ApiPermission.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url": {
+                            "id": "ApiPermission.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url",
+                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
@@ -2767,7 +2720,7 @@
                                       {
                                         "Ref": "NewswellApiDeploymentStageprodF5DB2A32"
                                       },
-                                      "/GET/get_presigned_url"
+                                      "/POST/get_presigned_url"
                                     ]
                                   ]
                                 }
@@ -2778,9 +2731,9 @@
                               "version": "2.161.0"
                             }
                           },
-                          "ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url": {
-                            "id": "ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url",
-                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url",
+                          "ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url": {
+                            "id": "ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url",
+                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                               "aws:cdk:cloudformation:props": {
@@ -2812,7 +2765,7 @@
                                       {
                                         "Ref": "NewswellApi56C13A74"
                                       },
-                                      "/test-invoke-stage/GET/get_presigned_url"
+                                      "/test-invoke-stage/POST/get_presigned_url"
                                     ]
                                   ]
                                 }
@@ -2825,12 +2778,12 @@
                           },
                           "Resource": {
                             "id": "Resource",
-                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/Resource",
+                            "path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ApiGateway::Method",
                               "aws:cdk:cloudformation:props": {
                                 "authorizationType": "NONE",
-                                "httpMethod": "GET",
+                                "httpMethod": "POST",
                                 "integration": {
                                   "type": "AWS_PROXY",
                                   "uri": {

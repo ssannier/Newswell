@@ -9,10 +9,69 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import useHistoryState from "./utils/useHistoryState";
 
+import {Amplify} from 'aws-amplify';
+import LoginPage from './components/LoginPage';
+import { signOut } from "aws-amplify/auth";
+
+
 export const Context = React.createContext();
 const env = import.meta.env;
 
+
+
 const App = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true";
+  });
+
+  Amplify.configure({
+    Auth: {
+      Cognito: {
+        userPoolId: "us-west-2_Zmc6C1Xzy", // Your Cognito User Pool ID
+        userPoolClientId: "7o0iqulv5dn96fv7ntro1jdqlc", // Your App Client ID
+        identityPoolId: "us-west-2:f5d16473-a78f-4636-bcc5-6c3f483c3423", // Optional: Identity Pool ID if using Federated Identities
+        loginWith: {
+          email: true, // Login using email
+        },
+        signUpVerificationMethod: "code", // Code-based verification during sign-up
+        userAttributes: {
+          email: {
+            required: true, // Email is required as an attribute
+          },
+        },
+        allowGuestAccess: false, // Set to true if guest access is needed
+        passwordFormat: {
+          minLength: 6,
+          requireLowercase: true,
+          requireUppercase: true,
+          requireNumbers: true,
+          requireSpecialCharacters: true,
+        },
+      },
+    },
+  });
+
+
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is authenticated on component mount
+  const handleLogin = () => {
+    localStorage.setItem("isLoggedIn", "true");
+    setIsLoggedIn(true);
+  };
+
+  // Handle user logout
+  const handleLogout = async () => {
+    try {
+      await signOut(); // AWS Cognito sign out
+      localStorage.removeItem("isLoggedIn");
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error("Logout error", error);
+    }
+  };
+
   const [layout, setLayout, undo, redo] = useHistoryState(initializeLayout());
   const [layoutLoading, setLayoutLoading] = useState(true);
 
@@ -56,10 +115,16 @@ const App = () => {
     fetchLayout();
   }, []);
 
+
+  //Set Login Page
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
   return (
     <Context.Provider value={[layout, setLayout, undo, redo]}>
       <div className="App">
-        <AppLayout layoutLoading={layoutLoading} />
+        <AppLayout layoutLoading={layoutLoading} onLogout={handleLogout} />
         <ToastContainer />
       </div>
     </Context.Provider>

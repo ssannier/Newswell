@@ -552,7 +552,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "e41bec72e7392a2d25efa30f024a669638ce0262f04ca02d5229576cc431ef4e.zip"
+     "S3Key": "d46242231a87a61ccc1461bc5eb81e5f785e92be4dc17e5fa695a0d623ebb25e.zip"
     },
     "Environment": {
      "Variables": {
@@ -580,7 +580,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/SummaryLambda/Resource",
-    "aws:asset:path": "asset.e41bec72e7392a2d25efa30f024a669638ce0262f04ca02d5229576cc431ef4e",
+    "aws:asset:path": "asset.d46242231a87a61ccc1461bc5eb81e5f785e92be4dc17e5fa695a0d623ebb25e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -592,7 +592,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1f5901a9cf994f7c7f1227f1e73599e9a3acefb6388f1f5f7d157294d76f2a44.zip"
+     "S3Key": "27845e0146899ca7833cdade79b911375a068501a246484a724bbab2980eefd1.zip"
     },
     "Environment": {
      "Variables": {
@@ -620,7 +620,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/TitleLambda/Resource",
-    "aws:asset:path": "asset.1f5901a9cf994f7c7f1227f1e73599e9a3acefb6388f1f5f7d157294d76f2a44",
+    "aws:asset:path": "asset.27845e0146899ca7833cdade79b911375a068501a246484a724bbab2980eefd1",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -632,7 +632,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "cfd8aff32185502812189ecf366273bf6b4efc5d51bcef41449e700d8a62b7e5.zip"
+     "S3Key": "0fe89d403560bec730ec98e57d8d9daca0142f59c329123609d3476be194e9c0.zip"
     },
     "Environment": {
      "Variables": {
@@ -660,7 +660,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/UpdateDataLambda/Resource",
-    "aws:asset:path": "asset.cfd8aff32185502812189ecf366273bf6b4efc5d51bcef41449e700d8a62b7e5",
+    "aws:asset:path": "asset.0fe89d403560bec730ec98e57d8d9daca0142f59c329123609d3476be194e9c0",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -672,7 +672,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6a224a038e55cc040f02fe31a98b313723f34c445dff35530e317c76cdaf120a.zip"
+     "S3Key": "e92689c85de85f41ad63b25a5a8173a9b67840fce6e3e8acde3f913ec45bb885.zip"
     },
     "Environment": {
      "Variables": {
@@ -700,7 +700,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/GetDataLambda/Resource",
-    "aws:asset:path": "asset.6a224a038e55cc040f02fe31a98b313723f34c445dff35530e317c76cdaf120a",
+    "aws:asset:path": "asset.e92689c85de85f41ad63b25a5a8173a9b67840fce6e3e8acde3f913ec45bb885",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -712,7 +712,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5f226b49ff632fabb30bf25804546b814a257df044764d519956e1f0b9222671.zip"
+     "S3Key": "8a47d9f5a07e728c958d1d8db676e3c59c2c260c59c975922ebbf5da88e4a296.zip"
     },
     "Environment": {
      "Variables": {
@@ -740,7 +740,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/GeneratePresignedUrlNewLambda/Resource",
-    "aws:asset:path": "asset.5f226b49ff632fabb30bf25804546b814a257df044764d519956e1f0b9222671",
+    "aws:asset:path": "asset.8a47d9f5a07e728c958d1d8db676e3c59c2c260c59c975922ebbf5da88e4a296",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -752,7 +752,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6df855ec9cb06af27f7bf8877f1d9d121616318193ef81dc19b17029ea802639.zip"
+     "S3Key": "ccc755e452bd0a8c318a1e9591839c8dc65e8587fd6b653f280be73d393d23da.zip"
     },
     "Environment": {
      "Variables": {
@@ -780,7 +780,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/GeneratePresignedUrlExistingLambda/Resource",
-    "aws:asset:path": "asset.6df855ec9cb06af27f7bf8877f1d9d121616318193ef81dc19b17029ea802639",
+    "aws:asset:path": "asset.ccc755e452bd0a8c318a1e9591839c8dc65e8587fd6b653f280be73d393d23da",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -792,7 +792,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5bda5502cafa6b5e977fbdf1923c003196b06e12d0615397419888597926c4d5.zip"
+     "S3Key": "24e891969219e33d5d65e36f60cbc5e0958a6bce72175b29d1073f12fb623139.zip"
     },
     "Environment": {
      "Variables": {
@@ -820,7 +820,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/GetPresignedUrlLambda/Resource",
-    "aws:asset:path": "asset.5bda5502cafa6b5e977fbdf1923c003196b06e12d0615397419888597926c4d5",
+    "aws:asset:path": "asset.24e891969219e33d5d65e36f60cbc5e0958a6bce72175b29d1073f12fb623139",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -869,40 +869,6 @@
     "aws:asset:property": "Content"
    }
   },
-  "TranslationFunctionv2ServiceRole01557E49": {
-   "Type": "AWS::IAM::Role",
-   "Properties": {
-    "AssumeRolePolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Principal": {
-        "Service": "lambda.amazonaws.com"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "NewswellCdkStack/TranslationFunctionv2/ServiceRole/Resource"
-   }
-  },
   "TranslationFunctionv28C43EC0A": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
@@ -910,9 +876,18 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "84479643265cc67946491568ea7b8934d109a35e11da40a828b01deca680bf2c.zip"
+     "S3Key": "2421e1a81e9a4cc19912f327969f54a7e79948e10e22fa69fff82e2c32e1b7df.zip"
     },
-    "FunctionName": "TranslationFunction_stack",
+    "Environment": {
+     "Variables": {
+      "BUCKET_NAME": {
+       "Ref": "DataBucketE3889A50"
+      },
+      "REGION_NAME": {
+       "Ref": "AWS::Region"
+      }
+     }
+    },
     "Handler": "translate.lambda_handler",
     "Layers": [
      {
@@ -924,18 +899,20 @@
     ],
     "Role": {
      "Fn::GetAtt": [
-      "TranslationFunctionv2ServiceRole01557E49",
+      "LambdaRole3A44B857",
       "Arn"
      ]
     },
-    "Runtime": "python3.12"
+    "Runtime": "python3.12",
+    "Timeout": 600
    },
    "DependsOn": [
-    "TranslationFunctionv2ServiceRole01557E49"
+    "LambdaRoleDefaultPolicy75625A82",
+    "LambdaRole3A44B857"
    ],
    "Metadata": {
     "aws:cdk:path": "NewswellCdkStack/TranslationFunctionv2/Resource",
-    "aws:asset:path": "asset.84479643265cc67946491568ea7b8934d109a35e11da40a828b01deca680bf2c",
+    "aws:asset:path": "asset.2421e1a81e9a4cc19912f327969f54a7e79948e10e22fa69fff82e2c32e1b7df",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -950,7 +927,7 @@
     "aws:cdk:path": "NewswellCdkStack/NewswellApi/Resource"
    }
   },
-  "NewswellApiDeploymentB97F0D21ebae33e5b49a23a0cdefa67df19a9e9b": {
+  "NewswellApiDeploymentB97F0D212e325d05728b46a6074879cbbadf0292": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "This service serves Newswell APIs.",
@@ -965,7 +942,7 @@
     "NewswellApigeneratepresignedurlnew4C738C19",
     "NewswellApigetdataGET745CCD86",
     "NewswellApigetdata3D45F825",
-    "NewswellApigetpresignedurlGETF74F0C99",
+    "NewswellApigetpresignedurlPOSTF2D433F3",
     "NewswellApigetpresignedurl481577A8",
     "NewswellApiidmlgenGETB7152E8A",
     "NewswellApiidmlgenCB6B7CF3",
@@ -984,7 +961,7 @@
    "Type": "AWS::ApiGateway::Stage",
    "Properties": {
     "DeploymentId": {
-     "Ref": "NewswellApiDeploymentB97F0D21ebae33e5b49a23a0cdefa67df19a9e9b"
+     "Ref": "NewswellApiDeploymentB97F0D212e325d05728b46a6074879cbbadf0292"
     },
     "MethodSettings": [
      {
@@ -1891,7 +1868,7 @@
     "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/Resource"
    }
   },
-  "NewswellApigetpresignedurlGETApiPermissionNewswellCdkStackNewswellApi1501697DGETgetpresignedurl71AB08B4": {
+  "NewswellApigetpresignedurlPOSTApiPermissionNewswellCdkStackNewswellApi1501697DPOSTgetpresignedurl4A52632D": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -1926,16 +1903,16 @@
        {
         "Ref": "NewswellApiDeploymentStageprodF5DB2A32"
        },
-       "/GET/get_presigned_url"
+       "/POST/get_presigned_url"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url"
+    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url"
    }
   },
-  "NewswellApigetpresignedurlGETApiPermissionTestNewswellCdkStackNewswellApi1501697DGETgetpresignedurlD46A120F": {
+  "NewswellApigetpresignedurlPOSTApiPermissionTestNewswellCdkStackNewswellApi1501697DPOSTgetpresignedurl8B704F84": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -1966,20 +1943,20 @@
        {
         "Ref": "NewswellApi56C13A74"
        },
-       "/test-invoke-stage/GET/get_presigned_url"
+       "/test-invoke-stage/POST/get_presigned_url"
       ]
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url"
+    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url"
    }
   },
-  "NewswellApigetpresignedurlGETF74F0C99": {
+  "NewswellApigetpresignedurlPOSTF2D433F3": {
    "Type": "AWS::ApiGateway::Method",
    "Properties": {
     "AuthorizationType": "NONE",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "Integration": {
      "IntegrationHttpMethod": "POST",
      "Type": "AWS_PROXY",
@@ -2015,7 +1992,7 @@
     }
    },
    "Metadata": {
-    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/Resource"
+    "aws:cdk:path": "NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/Resource"
    }
   },
   "NewswellApiidmlgenCB6B7CF3": {

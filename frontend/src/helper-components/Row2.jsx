@@ -45,7 +45,10 @@ const Row2 = ({ id, width, height }) => {
             displayText={(temp) => {
               return temp;
             }}
-            sx={{ fontWeight: "600", fontSize: "1.5rem", lineHeight: "1.334" }}
+            sx={{ fontWeight: "600", fontFamily: "Playfair Display",
+              fontSize: "34pt",
+              lineHeight: "38pt",
+              }}
           />
           <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>
             {isLoading ? <CircularProgress size={24} /> : <AutorenewIcon />}
@@ -59,16 +62,28 @@ const Row2 = ({ id, width, height }) => {
             displayText={(temp) => {
               return temp;
             }}
+            sx={{ fontWeight: "400", fontFamily: "Merriweather",
+              fontSize: "10pt",
+              lineHeight: "14pt",
+              }}
           />
-          <HoverText id={id} width={width} height={height} />
-          {/* <EditableField
+          <HoverText id={id} width={width} height={height} fontFamily="Merriweather"
+          fontWeight="400"
+          fontSize="10pt"
+          lineHeight="14pt" />
+          <EditableField
             id={id}
             field="linkToPage"
             placeholder="See full story in page 4"
             displayText={(temp) => {
               return temp;
             }}
-          /> */}
+            sx={{ fontWeight: "700", fontFamily: "Merriweather",
+              fontSize: "10pt",
+              lineHeight: "14pt",
+              textTransform: "uppercase"
+              }}
+          />
         </Grid>
       </Grid>
       <Grid item xs={8} sx={{ height: "100%" }}>

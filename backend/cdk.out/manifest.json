@@ -19,7 +19,7 @@
         "notificationArns": [],
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cb899346cc731c5cc636a98557a2b34593ee0446d4ac33b3aa2612c8810344c0.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cbc515d7d42d40bb5215727e117dddbcb1d968f5e09a618b3ebe278ec00f02ba.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -183,12 +183,6 @@
             "data": "lxmlLayer61A80577"
           }
         ],
-        "/NewswellCdkStack/TranslationFunctionv2/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "TranslationFunctionv2ServiceRole01557E49"
-          }
-        ],
         "/NewswellCdkStack/TranslationFunctionv2/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -204,7 +198,7 @@
         "/NewswellCdkStack/NewswellApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "NewswellApiDeploymentB97F0D21ebae33e5b49a23a0cdefa67df19a9e9b"
+            "data": "NewswellApiDeploymentB97F0D212e325d05728b46a6074879cbbadf0292"
           }
         ],
         "/NewswellCdkStack/NewswellApi/DeploymentStage.prod/Resource": [
@@ -369,22 +363,22 @@
             "data": "NewswellApigetpresignedurl481577A8"
           }
         ],
-        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url": [
+        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "NewswellApigetpresignedurlGETApiPermissionNewswellCdkStackNewswellApi1501697DGETgetpresignedurl71AB08B4"
+            "data": "NewswellApigetpresignedurlPOSTApiPermissionNewswellCdkStackNewswellApi1501697DPOSTgetpresignedurl4A52632D"
           }
         ],
-        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.GET..get_presigned_url": [
+        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/ApiPermission.Test.NewswellCdkStackNewswellApi1501697D.POST..get_presigned_url": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "NewswellApigetpresignedurlGETApiPermissionTestNewswellCdkStackNewswellApi1501697DGETgetpresignedurlD46A120F"
+            "data": "NewswellApigetpresignedurlPOSTApiPermissionTestNewswellCdkStackNewswellApi1501697DPOSTgetpresignedurl8B704F84"
           }
         ],
-        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/GET/Resource": [
+        "/NewswellCdkStack/NewswellApi/Default/get_presigned_url/POST/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "NewswellApigetpresignedurlGETF74F0C99"
+            "data": "NewswellApigetpresignedurlPOSTF2D433F3"
           }
         ],
         "/NewswellCdkStack/NewswellApi/Default/idml_gen/Resource": [

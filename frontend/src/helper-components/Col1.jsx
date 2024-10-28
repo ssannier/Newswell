@@ -31,16 +31,30 @@ const Col1 = ({ id, width, height }) => {
       <Grid container item xs={12} direction="column" spacing={2}>
         <Grid item>
           <Paper elevation={0} sx={{ padding: "1rem 0" }}>
-            <Typography sx={{ fontWeight: "bold", backgroundColor: "#FFFF00", width: "fit-content", fontSize: "20px" }}>CULTURE</Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              sx={{
+                fontWeight: "400",
+                width: "fit-content",
+                fontFamily: "Bevan",
+                fontSize: "12pt",
+                color: "rgb(14,97,151)",
+                marginRight: "0.5rem", // Adds some space between the text and the divider
+              }}
+            >
+              CULTURE
+            </Typography>
+            <Divider sx={{ flexGrow: 1 }} />
+          </Box>
           </Paper>
-          <Divider />
+          
         </Grid>
         <Grid item>
           <ImageUploader id={id} width={312} height={216} placeholder="Add Image" />
         </Grid>
         <Grid item container direction="row">
           <Grid item xs={10}>
-            <Typography variant="h6" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ fontWeight: "600",fontFamily:"Playfair Display", fontSize:"20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
               {layout?.[id].title || "Click to generate headline"}
             </Typography>
           </Grid>

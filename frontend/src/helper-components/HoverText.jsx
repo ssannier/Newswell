@@ -45,7 +45,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   color: "#fff",
   borderColor: "#fff",
 }));
-const HoverText = ({ id, width, height }) => {
+const HoverText = ({ id, width, height, fontFamily, fontWeight, fontSize, lineHeight}) => {
   const [loading, setLoading] = useState(false);
   const [layout, setLayout] = useContext(Context);
   const handleEdit = () => {
@@ -81,7 +81,10 @@ const HoverText = ({ id, width, height }) => {
         boxShadow: id === layout.selectedTextbox ? "0px 3px 3px -2px #abd8de, 0px 3px 4px 0px rgb(176 224 230), 0px 1px 8px 0px rgb(176 224 230)" : "none",
       }}
     >
-      <TextBox sx={{ height: "100%", width: "100%", fontSize: layout[id].body ? "1rem" : "1rem" }}>
+      <TextBox sx={{ height: "100%", width: "100%", fontSize: layout[id].body ? "1rem" : "1rem"}} fontFamily={fontFamily}
+        fontWeight={fontWeight}
+        fontSize={fontSize}
+        lineHeight={lineHeight} >
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <CircularProgress />

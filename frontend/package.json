@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.5.5",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.5",
     "@mui/material": "^5.16.5",
     "@uidotdev/usehooks": "^2.4.1",
+    "aws-amplify": "^6.6.6",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "file-saver": "^2.0.5",

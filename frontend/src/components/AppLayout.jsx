@@ -42,7 +42,7 @@ const ActionButton = styled(Button)({
 });
 const env = import.meta.env;
 
-const AppLayout = ({ layoutLoading }) => {
+const AppLayout = ({ layoutLoading, onLogout}) => {
   const [layout, setLayout, undo, redo] = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [currentText, setCurrentText] = useState("");
@@ -233,18 +233,50 @@ const AppLayout = ({ layoutLoading }) => {
     }
     return await response.blob();
   };
+
+  const LogOutButton = styled(Button)(({ theme }) => ({
+    textTransform: 'none',
+    backgroundColor: '#FFD700',
+    color: '#000',
+    borderRadius: '8px',
+    padding: '0.5rem 1rem',
+    minWidth: '100px',
+    '&:hover': {
+      backgroundColor: '#FFC700',
+    },
+  }));
+
   return (
     <>
-      <StyledAppBar position="static">
-        <Toolbar sx={{ alignItems: "flex-end" }}>
+    <StyledAppBar position="static">
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {/* Left side: NEWSWELL Logo */}
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Typography variant="h5" gutterBottom sx={{ color: "#FFC627", fontWeight: "bold" }}>
             NEWS
           </Typography>
           <Typography variant="h5" gutterBottom sx={{ color: "#4AB7C4", fontWeight: "bold" }}>
             WELL
           </Typography>
-        </Toolbar>
-      </StyledAppBar>
+        </Box>
+
+        {/* Right side: Logout Button */}
+        <LogOutButton
+          type="submit"
+          variant="contained"
+          disabled={loading}
+          onClick={onLogout}
+        >
+          {loading ? 'Logging Out...' : 'Sign-Out'}
+        </LogOutButton>
+      </Toolbar>
+    </StyledAppBar>
       <ContentArea>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>

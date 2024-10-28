@@ -33,11 +33,22 @@ const Row3 = ({ id, width, height }) => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper elevation={0} sx={{ padding: "1rem 0" }}>
-            <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "#FFFF00", width: "fit-content" }}>
-              TOP STORIES
-            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="h6"
+                sx={{
+                  fontWeight: "400",
+                  width: "fit-content",
+                  fontFamily: "Bevan",
+                  fontSize: "12pt",
+                  color: "rgb(14,97,151)",
+                  marginRight: "0.5rem", // Adds some space between the text and the divider
+                }}
+              >
+                TOP STORIES
+              </Typography>
+              <Divider sx={{ flexGrow: 1 }} />
+            </Box>
           </Paper>
-          <Divider />
         </Grid>
 
         <Grid item xs={6}>
@@ -46,7 +57,7 @@ const Row3 = ({ id, width, height }) => {
 
         <Grid item xs={6}>
           <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6" sx={{ fontWeight: "600" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ fontWeight: "600",fontFamily:"Playfair Display", fontSize:"20pt" }} onClick={handleGenerateHeadline} style={{ cursor: "pointer", flexGrow: 1 }}>
               {layout?.[id].title || "Click to generate headline"}
             </Typography>
             <IconButton onClick={handleGenerateHeadline} disabled={isLoading}>

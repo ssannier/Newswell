@@ -55,6 +55,7 @@ const Row3 = ({ id, width, height }) => {
         <Grid item xs={6} container justifyContent="flex-end" alignContent="flex-start">
           <ImageUploader id={id} width={312} height={240} placeholder="Add Image" />
           <EditableField
+            id={id}
             field="credits"
             placeholder=""
             displayText={(temp) => {
@@ -67,7 +68,6 @@ const Row3 = ({ id, width, height }) => {
               textAlign: "center",
               fontSize: 12,
             }}
-            editCanvas={true}
           />
         </Grid>
 

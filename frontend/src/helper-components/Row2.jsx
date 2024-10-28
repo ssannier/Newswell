@@ -88,6 +88,7 @@ const Row2 = ({ id, width, height }) => {
           sx={{ fontWeight: 400, fontSize: 12, margin: "8px 0px 8px 17px" }}
         />
         <EditableField
+          id={id}
           field="credits"
           placeholder=""
           displayText={(temp) => {
@@ -100,7 +101,6 @@ const Row2 = ({ id, width, height }) => {
             textAlign: "end",
             fontSize: 12,
           }}
-          editCanvas={true}
         />
       </Grid>
     </>

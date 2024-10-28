@@ -111,9 +111,9 @@ const App = () => {
   }, []);
 
   // Set Login Page
-  // if (!isLoggedIn) {
-  //   return <LoginPage onLogin={handleLogin} />;
-  // }
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
 
   return (
     <Context.Provider value={[layout, setLayout, undo, redo]}>

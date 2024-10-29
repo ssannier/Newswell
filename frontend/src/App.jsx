@@ -228,7 +228,6 @@ export const initializeLayout = (tLayout) => {
         imageDesc: "",
         id: tLayout ? layout[newsId].id : "",
         loading: false,
-        credits: "",
       },
     };
   }

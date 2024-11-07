@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LinearProgressWithLabel from "./LinearProgressWithLabel";
 import downloadGif from "../assets/download.gif"; // Import your GIF
 import successGif from "../assets/success.gif"; // Import your GIF
+import logo from "../assets/Logo.png"; // Import your GIF
 
 // Assuming you're using react-toastify for toast notifications
 const StyledAppBar = styled(AppBar)({
@@ -312,14 +313,14 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
           }}
         >
           {/* Left side: NEWSWELL Logo */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h5" gutterBottom sx={{ color: "#FFC627", fontWeight: "bold" }}>
-              NEWS
-            </Typography>
-            <Typography variant="h5" gutterBottom sx={{ color: "#4AB7C4", fontWeight: "bold" }}>
-              WELL
-            </Typography>
-          </Box>
+          <img
+            src={logo}
+            alt="NEWSKICK"
+            style={{
+              width: "9rem",
+              height: "100%",
+            }}
+          />
 
           {/* Right side: Logout Button */}
           <LogOutButton type="submit" variant="contained" disabled={logoutLoading} onClick={handleLogout}>

@@ -49,13 +49,25 @@ const Header = () => {
                   sx={{ textAlign: "left", color: "black", fontSize: "0.875rem", fontWeight: 400 }}
                   editCanvas={true}
                 />
-                <Typography sx={{ fontFamily: "Merriweather, serif", fontSize: "12pt", lineHeight: "14.4pt" }}>
-                  {`${layout.day}` || getDayOfWeek()}
-                  <br />
-                  {`${layout.date}` || getFormattedDate()}
-                  <br />
-                </Typography>
-
+                <EditableField
+                  field="day"
+                  placeholder={`${layout.day}` || getDayOfWeek()}
+                  displayText={(temp) => {
+                    return temp;
+                  }}
+                  sx={{ textAlign: "left", color: "black", fontSize: "0.875rem", fontWeight: 400 }}
+                  editCanvas={true}
+                />
+                <EditableField
+                  field="date"
+                  placeholder={`${layout.date}` || getFormattedDate()}
+                  displayText={(temp) => {
+                    return temp;
+                  }}
+                  sx={{ textAlign: "left", color: "black", fontSize: "0.875rem", fontWeight: 400 }}
+                  editCanvas={true}
+                />
+                <br />
                 {/* {`${layout.day}` || getDayOfWeek()}
                 <br />
                 {`${layout.date}` || getFormattedDate()}

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState} from "react";
 import { AppBar, Toolbar, Typography, Grid, Button, Box, Paper, CircularProgress } from "@mui/material";
 import { styled } from "@mui/system";
 import ReplayIcon from "@mui/icons-material/Replay";
@@ -44,7 +44,8 @@ const env = import.meta.env;
 
 const AppLayout = ({ layoutLoading, onLogout }) => {
   const [layout, setLayout, undo, redo] = useContext(Context);
-  const [loading, setLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
   const [currentText, setCurrentText] = useState("");
   const [openResetDialog, setOpenResetDialog] = useState(false);
 
@@ -61,8 +62,38 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
     handleCloseResetDialog();
   };
 
+  // const handleSave = async () => {
+  //   setLoading(true);
+  //   const cleanLayout = cleanLayoutForAPI(layout);
+
+  //   try {
+  //     const res = await axios.post(env.VITE_API_JSON_UPLOAD, cleanLayout.cleanedLayout, {
+  //       mode: "cors",
+  //       headers: {},
+  //     });
+  //     const message = res.data.body;
+  //     toast.success("Newspaper Layout saved successfully", {
+  //       position: "bottom-right",
+  //     });
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    try {
+      await onLogout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setLogoutLoading(false);
+    }
+  };
+
   const handleSave = async () => {
-    setLoading(true);
+    setSaveLoading(true);
     const cleanLayout = cleanLayoutForAPI(layout);
 
     try {
@@ -75,9 +106,16 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
         position: "bottom-right",
       });
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error saving data:", error);
+      toast.error("Failed to save the newspaper layout.", {
+        position: "bottom-right",
+      });
+    } finally {
+      setSaveLoading(false);
     }
   };
+
+
   // Function to generate IDML and download both images and IDML in a zip
   const generateIDML = async (zip) => {
     try {
@@ -173,11 +211,25 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
       // Step 3: Generate and download the zip
       updateProgress(0, "Zipping files...");
 
-      const qrCodeBlob = await getImage(layout.qrCodeImage);
-      zip.file(`${layout.qrCode}.jpg`, qrCodeBlob, { binary: true }); // Assuming PNG format
+      // const qrCodeBlob = await getImage(layout.qrCodeImage);
+      // zip.file(`${layout.qrCode}.jpg`, qrCodeBlob, { binary: true }); // Assuming PNG format
 
-      const mastheadIdBlob = await getImage(layout.mastheadId);
-      zip.file(`${layout.mastheadId}.jpg`, mastheadIdBlob, { binary: true }); // Assuming PNG format
+      // const mastheadIdBlob = await getImage(layout.mastheadId);
+      // zip.file(`${layout.mastheadId}.jpg`, mastheadIdBlob, { binary: true }); // Assuming PNG format
+
+      try {
+        const qrCodeBlob = await getImage(layout.qrCodeImage);
+        zip.file(`${layout.qrCode}.jpg`, qrCodeBlob, { binary: true });
+      } catch (error) {
+        console.error("Error fetching QR code image:", error);
+      }
+      
+      try {
+        const mastheadIdBlob = await getImage(layout.mastheadId);
+        zip.file(`${layout.mastheadId}.jpg`, mastheadIdBlob, { binary: true });
+      } catch (error) {
+        console.error("Error fetching masthead image:", error);
+      }
 
       const zipBlob = await zip.generateAsync({ type: "blob" });
       saveAs(zipBlob, "archive.zip");
@@ -270,8 +322,8 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
           </Box>
 
           {/* Right side: Logout Button */}
-          <LogOutButton type="submit" variant="contained" disabled={loading} onClick={onLogout}>
-            {loading ? "Logging Out..." : "Sign-Out"}
+          <LogOutButton type="submit" variant="contained" disabled={logoutLoading} onClick={handleLogout}>
+            {logoutLoading ? "Logging Out..." : "Sign-Out"}
           </LogOutButton>
         </Toolbar>
       </StyledAppBar>
@@ -307,8 +359,14 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
               <Typography variant="body2">
                 Want to save the changes made so far? <br></br>Click on the save button
               </Typography>
-              <ActionButton variant="contained" color="primary" onClick={handleSave} sx={{ mt: 1, backgroundColor: "#4682B4", "&:hover": { backgroundColor: "#357AE8" } }}>
-                Save
+              <ActionButton
+                variant="contained"
+                color="primary"
+                onClick={handleSave}
+                disabled={saveLoading}
+                sx={{ mt: 1, backgroundColor: "#4682B4", "&:hover": { backgroundColor: "#357AE8" } }}
+              >
+                {saveLoading ? "Saving..." : "Save"}
               </ActionButton>
             </Box>
             <div style={{ height: "1px", backgroundColor: "black", marginTop: "1rem" }}></div>

@@ -108,7 +108,7 @@ const Header = () => {
                   displayText={(temp) => {
                     return temp;
                   }}
-                  sx={{ fontFamily: "Merriweather, serif", fontSize: "11pt", textAlign: "left", fontWeight: 400, ml: 4 }}
+                  sx={{ fontFamily: "Merriweather", fontSize: "11pt", textAlign: "left", fontWeight: 400, ml: 4 }}
                   editCanvas={true}
                 />
               </Typography>

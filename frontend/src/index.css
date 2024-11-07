@@ -1,10 +1,52 @@
 @font-face {
   font-family: "Neue Haas Display";
-  src: url("./assets/fonts/NeueHaasDisplay-Thin.woff") format("woff");
-  font-weight: 700; /* Adjust if needed */
-  font-style: "bold";
+  src: url("./assets/fonts/NeueHaasDisplay-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Optional: Add Roman style if you use it frequently */
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Roman.otf") format("opentype");
+  font-weight: 400; /* Customize weight if needed */
+  font-style: normal;
+}
 :root {
   font-family: "Neue Haas Display", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -19,7 +61,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.MuiTypography-root {
+  font-family: "Neue Haas Display", sans-serif !important;
+  /* font-weight: 500 !important; Adjust weight as needed */
+}
+body {
+  font-family: "Neue Haas Display", sans-serif;
+}
 a {
   font-weight: 500;
   color: #e8bcbc;

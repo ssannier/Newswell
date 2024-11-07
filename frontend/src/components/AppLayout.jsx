@@ -1,4 +1,4 @@
-import React, { createContext, useState} from "react";
+import React, { createContext, useState } from "react";
 import { AppBar, Toolbar, Typography, Grid, Button, Box, Paper, CircularProgress } from "@mui/material";
 import { styled } from "@mui/system";
 import ReplayIcon from "@mui/icons-material/Replay";
@@ -81,7 +81,6 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
   //   }
   // };
 
-
   const handleLogout = async () => {
     setLogoutLoading(true);
     try {
@@ -115,7 +114,6 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
       setSaveLoading(false);
     }
   };
-
 
   // Function to generate IDML and download both images and IDML in a zip
   const generateIDML = async (zip) => {
@@ -224,7 +222,7 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
       } catch (error) {
         console.error("Error fetching QR code image:", error);
       }
-      
+
       try {
         const mastheadIdBlob = await getImage(layout.mastheadId);
         zip.file(`${layout.mastheadId}.jpg`, mastheadIdBlob, { binary: true });
@@ -323,16 +321,21 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
           />
 
           {/* Right side: Logout Button */}
-          <LogOutButton type="submit" variant="contained" disabled={logoutLoading} onClick={handleLogout} 
-          sx={{
-            mt: 1,
-            backgroundColor: "#FFC627",
-            color: "black", // Set text color to black
-            "&:hover": {
-              backgroundColor: "black", // Change to black on hover
-              color: "white" // Set text color to white on hover
-            }
-          }}>
+          <LogOutButton
+            type="submit"
+            variant="contained"
+            disabled={logoutLoading}
+            onClick={handleLogout}
+            sx={{
+              mt: 1,
+              backgroundColor: "#FFC627",
+              color: "black", // Set text color to black
+              "&:hover": {
+                backgroundColor: "black", // Change to black on hover
+                color: "white", // Set text color to white on hover
+              },
+            }}
+          >
             {logoutLoading ? "Logging Out..." : "Sign-Out"}
           </LogOutButton>
         </Toolbar>
@@ -356,38 +359,45 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
             <GenerateNews currentText={currentText} setCurrentText={setCurrentText} />
             <div style={{ height: "1px", backgroundColor: "black", margin: "0rem 4rem" }}></div>
             <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="outlined" startIcon={<ReplayIcon />} onClick={undo} 
-              sx={{
+              <Button
+                variant="outlined"
+                startIcon={<ReplayIcon />}
+                onClick={undo}
+                sx={{
                   color: "#FFC627", // Set text color to yellow
                   borderColor: "#FFC627", // Set border color to yellow
                   "&:hover": {
                     backgroundColor: "#FFC627", // Yellow background on hover
-                    color: "black" // Black text on hover
-                  }
-              }}>
+                    color: "black", // Black text on hover
+                  },
+                }}
+              >
                 Undo
               </Button>
               <div style={{ borderRight: "1px solid", marginLeft: "1rem", marginRight: "1rem" }}></div>
-              <Button onClick={handleOpenResetDialog} variant="outlined"
-              sx={{
-                color: "#FFC627", // Set text color to yellow
+              <Button
+                onClick={handleOpenResetDialog}
+                variant="outlined"
+                sx={{
+                  color: "#FFC627", // Set text color to yellow
                   borderColor: "#FFC627", // Set border color to yellow
                   "&:hover": {
                     backgroundColor: "#FFC627", // Yellow background on hover
-                    color: "black" // Black text on hover
-                  }
-              }}>
+                    color: "black", // Black text on hover
+                  },
+                }}
+              >
                 Reset the canvas
               </Button>
             </Box>
             <div style={{ height: "1px", backgroundColor: "black", marginTop: "1rem" }}></div>
             <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ color: "#FFFFFF" }}>
                 Want to save the changes made so far? <br></br>Click on the save button
               </Typography>
               <ActionButton
                 variant="contained"
-                color="primary"  //color change
+                color="primary" //color change
                 onClick={handleSave}
                 disabled={saveLoading}
                 sx={{
@@ -396,8 +406,8 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
                   color: "black", // Set text color to black
                   "&:hover": {
                     backgroundColor: "black", // Change to black on hover
-                    color: "white" // Set text color to white on hover
-                  }
+                    color: "white", // Set text color to white on hover
+                  },
                 }} // color changes
               >
                 {saveLoading ? "Saving..." : "Save"}
@@ -405,7 +415,9 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
             </Box>
             <div style={{ height: "1px", backgroundColor: "black", marginTop: "1rem" }}></div>
             <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="body2">Done with editing? Click on this button to generate the PDF</Typography>
+              <Typography variant="body2" sx={{ color: "#FFFFFF" }}>
+                Done with editing? Click on this button to generate the PDF
+              </Typography>
               <ActionButton
                 variant="contained"
                 onClick={handleCreatePDF}
@@ -415,7 +427,7 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
                   color: "black",
                   "&:hover": {
                     backgroundColor: "black",
-                    color: "white"
+                    color: "white",
                   },
                 }}
               >

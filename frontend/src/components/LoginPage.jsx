@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography, AppBar, Toolbar, Box, Divider } from '@mui/material';
 import { signIn } from 'aws-amplify/auth';
-import { styled } from '@mui/system';
+import { color, styled } from '@mui/system';
+import logo from "../assets/logo.png";
 
 function LoginPage({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -37,13 +38,14 @@ function LoginPage({ onLogin }) {
 
   const LoginButton = styled(Button)(({ theme }) => ({
     textTransform: 'none',
-    backgroundColor: '#FFD700',
-    color: '#000',
+    backgroundColor: '#FFC627',
+    color: '#000000',
     borderRadius: '8px',
     padding: '0.5rem 1rem',
     minWidth: '100px',
     '&:hover': {
-      backgroundColor: '#FFC700',
+      backgroundColor: 'black',
+      color: 'white',
     },
   }));
 
@@ -65,12 +67,14 @@ function LoginPage({ onLogin }) {
         >
           {/* Left side: NEWSWELL Logo */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h5" gutterBottom sx={{ color: "#FFC627", fontWeight: "bold" }}>
-              NEWS
-            </Typography>
-            <Typography variant="h5" gutterBottom sx={{ color: "#4AB7C4", fontWeight: "bold" }}>
-              WELL
-            </Typography>
+          <img
+            src={logo}
+            alt="NEWSKICK"
+            style={{
+              width: "9rem",
+              height: "100%",
+            }}
+          />
           </Box>
         </Toolbar>
       </StyledAppBar>
@@ -82,7 +86,7 @@ function LoginPage({ onLogin }) {
         container
         justifyContent="center"
         alignItems="center"
-        style={{ backgroundColor: '#B0E0E6' }}
+        style={{ backgroundColor: '#484848' }}
       >
         <Box
           sx={{

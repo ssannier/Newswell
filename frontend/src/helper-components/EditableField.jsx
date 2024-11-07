@@ -55,7 +55,7 @@ const EditableField = ({ id, field, placeholder, displayText, editCanvas = false
 
   if (isEditing) {
     return (
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center"}}>
         <TextField value={value} onChange={handleChange} onKeyDown={handleKeyDown} placeholder={placeholder} multiline={multiline} rows={rows} size="small" fullWidth sx={{ mr: 1 }} />
         <Button variant="contained" onClick={handleSave} size="small">
           Save

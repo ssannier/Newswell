@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LinearProgressWithLabel from "./LinearProgressWithLabel";
 import downloadGif from "../assets/download.gif"; // Import your GIF
 import successGif from "../assets/success.gif"; // Import your GIF
-import logo from "../assets/Logo.png"; // Import your GIF
+import logo from "../assets/logo.png"; // Import your GIF
 
 // Assuming you're using react-toastify for toast notifications
 const StyledAppBar = styled(AppBar)({
@@ -27,7 +27,7 @@ const Logo = styled(Typography)({
   fontWeight: "bold",
 });
 const ContentArea = styled(Box)({
-  backgroundColor: "#B0E0E6",
+  backgroundColor: "#484848",
   padding: "20px",
   minHeight: "calc(100vh - 64px)", // Subtract AppBar height
 });
@@ -323,7 +323,16 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
           />
 
           {/* Right side: Logout Button */}
-          <LogOutButton type="submit" variant="contained" disabled={logoutLoading} onClick={handleLogout}>
+          <LogOutButton type="submit" variant="contained" disabled={logoutLoading} onClick={handleLogout} 
+          sx={{
+            mt: 1,
+            backgroundColor: "#FFC627",
+            color: "black", // Set text color to black
+            "&:hover": {
+              backgroundColor: "black", // Change to black on hover
+              color: "white" // Set text color to white on hover
+            }
+          }}>
             {logoutLoading ? "Logging Out..." : "Sign-Out"}
           </LogOutButton>
         </Toolbar>
@@ -347,11 +356,27 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
             <GenerateNews currentText={currentText} setCurrentText={setCurrentText} />
             <div style={{ height: "1px", backgroundColor: "black", margin: "0rem 4rem" }}></div>
             <Box mt={2} sx={{ display: "flex", justifyContent: "center" }}>
-              <Button variant="outlined" startIcon={<ReplayIcon />} onClick={undo}>
+              <Button variant="outlined" startIcon={<ReplayIcon />} onClick={undo} 
+              sx={{
+                  color: "#FFC627", // Set text color to yellow
+                  borderColor: "#FFC627", // Set border color to yellow
+                  "&:hover": {
+                    backgroundColor: "#FFC627", // Yellow background on hover
+                    color: "black" // Black text on hover
+                  }
+              }}>
                 Undo
               </Button>
               <div style={{ borderRight: "1px solid", marginLeft: "1rem", marginRight: "1rem" }}></div>
-              <Button onClick={handleOpenResetDialog} variant="outlined">
+              <Button onClick={handleOpenResetDialog} variant="outlined"
+              sx={{
+                color: "#FFC627", // Set text color to yellow
+                  borderColor: "#FFC627", // Set border color to yellow
+                  "&:hover": {
+                    backgroundColor: "#FFC627", // Yellow background on hover
+                    color: "black" // Black text on hover
+                  }
+              }}>
                 Reset the canvas
               </Button>
             </Box>
@@ -362,10 +387,18 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
               </Typography>
               <ActionButton
                 variant="contained"
-                color="primary"
+                color="primary"  //color change
                 onClick={handleSave}
                 disabled={saveLoading}
-                sx={{ mt: 1, backgroundColor: "#4682B4", "&:hover": { backgroundColor: "#357AE8" } }}
+                sx={{
+                  mt: 1,
+                  backgroundColor: "#FFC627",
+                  color: "black", // Set text color to black
+                  "&:hover": {
+                    backgroundColor: "black", // Change to black on hover
+                    color: "white" // Set text color to white on hover
+                  }
+                }} // color changes
               >
                 {saveLoading ? "Saving..." : "Save"}
               </ActionButton>
@@ -378,10 +411,11 @@ const AppLayout = ({ layoutLoading, onLogout }) => {
                 onClick={handleCreatePDF}
                 sx={{
                   mt: 1,
-                  backgroundColor: "#FFD700",
+                  backgroundColor: "#FFC627",
                   color: "black",
                   "&:hover": {
-                    backgroundColor: "#FFC700",
+                    backgroundColor: "black",
+                    color: "white"
                   },
                 }}
               >

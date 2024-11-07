@@ -1,5 +1,12 @@
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("./assets/fonts/NeueHaasDisplay-Thin.woff") format("woff");
+  font-weight: 700; /* Adjust if needed */
+  font-style: "bold";
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Neue Haas Display", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,7 +22,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #e8bcbc;
   text-decoration: inherit;
 }
 a:hover {

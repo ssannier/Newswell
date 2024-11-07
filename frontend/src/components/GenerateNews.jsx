@@ -71,8 +71,8 @@ const GenerateNews = () => {
           </h2>
           <button
             style={{
-              backgroundColor: "#4682B4",
-              color: "white",
+              backgroundColor: "#FFC627",
+              color: "black",
               border: "none",
               padding: "10px 20px",
               borderRadius: "4px",
